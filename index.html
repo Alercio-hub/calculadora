@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    import { Octokit } from "@octokit/rest";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+async function getRecentWorkflowRuns() {
+  try {
+    const response = await octokit.actions.listWorkflowRunsForRepo({
+      owner: "Alercio-hub",
+      repo: "repo-name",
+      per_page: 5,
+    });
+
+    const runs = response.data.workflow_runs;
+    console.log("Recent Workflow Runs:", runs);
+  } catch (error) {
+    console.error("Error fetching workflow runs:", error);
+  }
+}
+
+getRecentWorkflowRuns();
+  <meta charset="UTF-8">
+  <title>Calculadora de Indemnização Resultante do Contrato de Trabalho em Moçambique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.5;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    label, select, input {
+      display: block;
+      margin: 8px 0;
+    }
+    fieldset {
+      margin: 15px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: red;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Indemnização Resultante do Contrato de Trabalho em Moçambique</h1>
+  </header>
+
+  <form id="calcForm" onsubmit="return false;">
+    <!-- Seleção do tipo de indemnização -->
+    <fieldset>
+      <legend>Tipo de Indemnização</legend>
+      <label for="tipoIndemnizacao">Selecione o tipo:</label>
+      <select id="tipoIndemnizacao" onchange="updateGeral()">
+        <option value="">--Selecione--</option>
+        <option value="trabalhador">Rescisão por iniciativa do trabalhador</option>
+        <option value="empregador">Rescisão por iniciativa do empregador</option>
+        <option value="ilicit">Despedimento ilícito</option>
+      </select>
+    </fieldset>
+
+    <!-- Seção Trabalhador -->
+    <section id="sec-trabalhador" class="hidden">
+      <fieldset>
+        <legend>Rescisão por iniciativa do Trabalhador</legend>
+        <label for="contratoTipoTrabalhador">Tipo de contrato:</label>
+        <select id="contratoTipoTrabalhador" onchange="updateTrabalhadorForm()">
+          <option value="">--Selecione--</option>
+          <option value="indeterminado">Tempo indeterminado</option>
+          <option value="prazo">Prazo certo</option>
+        </select>
+
+        <!-- Contrato Tempo Indeterminado -->
+        <div id="trabalhadorIndeterminado" class="hidden">
+          <label for="umAnoTrabalhador">Trabalhou pelo menos um ano?</label>
+          <select id="umAnoTrabalhador" onchange="updateTrabalhadorIndeterminado()">
+            <option value="">--Selecione--</option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
+
+          <!-- Se SIM (pelo menos um ano) -->
+          <div id="trabalhadorIndeterminadoSim" class="hidden">
+            <label for="salarioTrabalhador">Salário mensal (MT):</label>
+            <input type="number" id="salarioTrabalhador" step="0.01" min="0">
+            
+            <label for="anosTrabalhado">Anos trabalhados:</label>
+            <input type="number" id="anosTrabalhado" step="0.1" min="0">
+            
+            <label for="mesesExtraTrabalhador">Trabalhou meses que não completam um ano?</label>
+            <select id="mesesExtraTrabalhador" onchange="updateTrabalhadorMesesExtra()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="trabalhadorMesesExtraInput" class="hidden">
+              <label for="mesesExtraInput">Meses extras:</label>
+              <input type="number" id="mesesExtraInput" step="0.1" min="0">
+            </div>
+            
+            <!-- Férias Não Gozadas para Indeterminado -->
+            <label for="feriasTrabalhador">Tem férias não gozadas?</label>
+            <select id="feriasTrabalhador" onchange="updateTrabalhadorFerias()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="feriasInput" class="hidden">
+              <label for="diasFerias">Quantos dias de férias não gozadas?</label>
+              <input type="number" id="diasFerias" min="0">
+            </div>
+          </div>
+
+          <!-- Se NÃO (menos de um ano) -->
+          <div id="trabalhadorIndeterminadoNao" class="hidden">
+            <label for="mesesTrabalhado">Quantos meses trabalhou?</label>
+            <input type="number" id="mesesTrabalhado" step="0.1" min="0">
+          </div>
+        </div>
+
+        <!-- Contrato Prazo Certo -->
+        <div id="trabalhadorPrazo" class="hidden">
+          <label for="salarioTrabalhadorPrazo">Salário mensal (MT):</label>
+          <input type="number" id="salarioTrabalhadorPrazo" step="0.01" min="0">
+          
+          <label for="tempoFaltanteTrabalhador">Quanto tempo faltava para o contrato expirar?</label>
+          <select id="tempoFaltanteTrabalhador" onchange="updateTrabalhadorPrazo()">
+            <option value="">--Selecione--</option>
+            <option value="anos">Anos</option>
+            <option value="meses">Meses</option>
+          </select>
+          <div id="trabalhadorPrazoAnos" class="hidden">
+            <label for="anosFaltandoTrabalhador">Anos restantes:</label>
+            <input type="number" id="anosFaltandoTrabalhador" step="0.1" min="0">
+            <label for="mesesFaltandoPergTrabalhador">Para além desses anos faltam alguns meses?</label>
+            <select id="mesesFaltandoPergTrabalhador" onchange="updateTrabalhadorPrazoMeses()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="trabalhadorPrazoMeses" class="hidden">
+              <label for="mesesFaltandoTrabalhador">Meses restantes:</label>
+              <input type="number" id="mesesFaltandoTrabalhador" step="0.1" min="0">
+            </div>
+          </div>
+          <div id="trabalhadorPrazoMesesOnly" class="hidden">
+            <label for="mesesFaltandoOnlyTrabalhador">Meses restantes:</label>
+            <input type="number" id="mesesFaltandoOnlyTrabalhador" step="0.1" min="0">
+          </div>
+          <!-- Férias Não Gozadas para Prazo Certo -->
+          <div id="feriasTrabalhadorPrazoDiv">
+            <label for="feriasTrabalhadorPrazo">Tem férias não gozadas?</label>
+            <select id="feriasTrabalhadorPrazo" onchange="updateFeriasTrabalhadorPrazo()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="feriasTrabalhadorPrazoInput" class="hidden">
+              <label for="diasFeriasTrabalhadorPrazo">Quantos dias de férias não gozadas?</label>
+              <input type="number" id="diasFeriasTrabalhadorPrazo" min="0">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- Seção Empregador -->
+    <section id="sec-empregador" class="hidden">
+      <fieldset>
+        <legend>Rescisão por iniciativa do Empregador</legend>
+        <label for="salarioMinimoEmpregador">Salário mínimo do setor (MT):</label>
+        <input type="number" id="salarioMinimoEmpregador" step="0.01" min="0">
+        
+        <label for="salarioEmpregador">Salário mensal (MT):</label>
+        <input type="number" id="salarioEmpregador" step="0.01" min="0">
+        
+        <label for="contratoTipoEmpregador">Tipo de contrato:</label>
+        <select id="contratoTipoEmpregador" onchange="updateEmpregadorForm()">
+          <option value="">--Selecione--</option>
+          <option value="indeterminado">Tempo indeterminado</option>
+          <option value="prazo">Prazo certo</option>
+        </select>
+
+        <!-- Contrato Tempo Indeterminado Empregador -->
+        <div id="empregadorIndeterminado" class="hidden">
+          <label for="umAnoEmpregador">Trabalhou pelo menos um ano?</label>
+          <select id="umAnoEmpregador" onchange="updateEmpregadorIndeterminado()">
+            <option value="">--Selecione--</option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
+          <!-- Se SIM -->
+          <div id="empregadorIndeterminadoSim" class="hidden">
+            <label for="anosEmpregador">Anos de serviço:</label>
+            <input type="number" id="anosEmpregador" step="0.1" min="0">
+            <label for="mesesExtraEmpregador">Trabalhou meses extras (incompletos)?</label>
+            <select id="mesesExtraEmpregador" onchange="updateEmpregadorMesesExtra()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="empregadorMesesExtraInput" class="hidden">
+              <label for="mesesExtraEmpregadorInput">Meses extras:</label>
+              <input type="number" id="mesesExtraEmpregadorInput" step="0.1" min="0">
+            </div>
+          </div>
+          <!-- Se NÃO (menos de um ano) -->
+          <div id="empregadorIndeterminadoNao" class="hidden">
+            <label for="mesesTrabalhadoEmpregador">Quantos meses trabalhou?</label>
+            <input type="number" id="mesesTrabalhadoEmpregador" step="0.1" min="0">
+          </div>
+        </div>
+
+        <!-- Contrato Prazo Certo Empregador -->
+        <div id="empregadorPrazo" class="hidden">
+          <label for="salarioEmpregadorPrazo">Salário mensal (MT):</label>
+          <input type="number" id="salarioEmpregadorPrazo" step="0.01" min="0">
+          
+          <label for="tempoFaltanteEmpregador">Quanto tempo faltava para o contrato expirar?</label>
+          <select id="tempoFaltanteEmpregador" onchange="updateEmpregadorPrazo()">
+            <option value="">--Selecione--</option>
+            <option value="anos">Anos</option>
+            <option value="meses">Meses</option>
+          </select>
+          <div id="empregadorPrazoAnos" class="hidden">
+            <label for="anosFaltandoEmpregador">Anos restantes:</label>
+            <input type="number" id="anosFaltandoEmpregador" step="0.1" min="0">
+            <label for="mesesFaltandoPergEmpregador">Para além desses anos faltam meses?</label>
+            <select id="mesesFaltandoPergEmpregador" onchange="updateEmpregadorPrazoMeses()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="empregadorPrazoMeses" class="hidden">
+              <label for="mesesFaltandoEmpregador">Meses restantes:</label>
+              <input type="number" id="mesesFaltandoEmpregador" step="0.1" min="0">
+            </div>
+          </div>
+          <div id="empregadorPrazoMesesOnly" class="hidden">
+            <label for="mesesFaltandoOnlyEmpregador">Meses restantes:</label>
+            <input type="number" id="mesesFaltandoOnlyEmpregador" step="0.1" min="0">
+          </div>
+        </div>
+      </fieldset>
+      <!-- Férias Não Gozadas para Empregador (única para ambos os tipos) -->
+      <div id="feriasEmpregadorDiv">
+        <label for="feriasEmpregador">Tem férias não gozadas?</label>
+        <select id="feriasEmpregador" onchange="updateFeriasEmpregador()">
+          <option value="">--Selecione--</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+        <div id="feriasEmpregadorInput" class="hidden">
+          <label for="diasFeriasEmpregador">Quantos dias de férias não gozadas?</label>
+          <input type="number" id="diasFeriasEmpregador" min="0">
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Despedimento Ilícito -->
+    <section id="sec-ilicito" class="hidden">
+      <fieldset>
+        <legend>Despedimento Ilícito</legend>
+        <label for="subTipoIlicito">Você deseja:</label>
+        <select id="subTipoIlicito" onchange="updateIlicitoForm()">
+          <option value="">--Selecione--</option>
+          <option value="indemnizacao">Indemnização</option>
+          <option value="reintegracao">Reintegração</option>
+        </select>
+        
+        <!-- Ilicito – Indemnização -->
+        <div id="ilicitoIndemnizacao" class="hidden">
+          <label for="salarioIlicito">Salário mensal (MT):</label>
+          <input type="number" id="salarioIlicito" step="0.01" min="0">
+          
+          <label for="tempoFaltanteIlicito">Quanto tempo faltava para o contrato expirar?</label>
+          <select id="tempoFaltanteIlicito" onchange="updateIlicitoPrazo()">
+            <option value="">--Selecione--</option>
+            <option value="anos">Anos</option>
+            <option value="meses">Meses</option>
+          </select>
+          <div id="ilicitoPrazoAnos" class="hidden">
+            <label for="anosFaltandoIlicito">Anos restantes:</label>
+            <input type="number" id="anosFaltandoIlicito" step="0.1" min="0">
+            <label for="mesesFaltandoPergIlicito">Para além desses anos faltam meses?</label>
+            <select id="mesesFaltandoPergIlicito" onchange="updateIlicitoPrazoMeses()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="ilicitoPrazoMeses" class="hidden">
+              <label for="mesesFaltandoIlicito">Meses restantes:</label>
+              <input type="number" id="mesesFaltandoIlicito" step="0.1" min="0">
+            </div>
+          </div>
+          <div id="ilicitoPrazoMesesOnly" class="hidden">
+            <label for="mesesFaltandoOnlyIlicito">Meses restantes:</label>
+            <input type="number" id="mesesFaltandoOnlyIlicito" step="0.1" min="0">
+          </div>
+          <!-- Férias Não Gozadas para Indemnização -->
+          <div id="feriasIlicitoDiv">
+            <label for="feriasIlicito">Tem férias não gozadas?</label>
+            <select id="feriasIlicito" onchange="updateFeriasIlicito()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="feriasIlicitoInput" class="hidden">
+              <label for="diasFeriasIlicito">Quantos dias de férias não gozadas?</label>
+              <input type="number" id="diasFeriasIlicito" min="0">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Ilicito – Reintegração -->
+        <div id="ilicitoReintegracao" class="hidden">
+          <label for="salarioReintegracao">Salário (MT):</label>
+          <input type="number" id="salarioReintegracao" step="0.01" min="0">
+          <label for="tempoDesdeDespedimento">Tempo decorrido desde o despedimento (meses):</label>
+          <input type="number" id="tempoDesdeDespedimento" step="0.1" min="0">
+          <!-- Férias Não Gozadas para Reintegração -->
+          <div id="feriasReintegracaoDiv">
+            <label for="feriasReintegracao">Tem férias não gozadas?</label>
+            <select id="feriasReintegracao" onchange="updateFeriasReintegracao()">
+              <option value="">--Selecione--</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+            <div id="feriasReintegracaoInput" class="hidden">
+              <label for="diasFeriasReintegracao">Quantos dias de férias não gozadas?</label>
+              <input type="number" id="diasFeriasReintegracao" min="0">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- Botão de Cálculo e Área de Resultado -->
+    <button type="button" onclick="calcular()">Calcular</button>
+    <div id="resultado"></div>
+  </form>
+
+  <footer>
+    <p>Nota: Essa calculadora não substitui a necessidade de consulta a um advogado.</p>
+  </footer>
+
+  <script>
+    // Função para atualizar a exibição geral das seções
+    function updateGeral() {
+      const tipo = document.getElementById('tipoIndemnizacao').value;
+      // Esconde todas as seções
+      document.getElementById('sec-trabalhador').classList.add('hidden');
+      document.getElementById('sec-empregador').classList.add('hidden');
+      document.getElementById('sec-ilicito').classList.add('hidden');
+      
+      if(tipo === "trabalhador") {
+        document.getElementById('sec-trabalhador').classList.remove('hidden');
+      } else if(tipo === "empregador") {
+        document.getElementById('sec-empregador').classList.remove('hidden');
+      } else if(tipo === "ilicit") {
+        document.getElementById('sec-ilicito').classList.remove('hidden');
+      }
+    }
+    
+    // --- Seção Trabalhador ---
+    function updateTrabalhadorForm() {
+      const tipoContrato = document.getElementById('contratoTipoTrabalhador').value;
+      document.getElementById('trabalhadorIndeterminado').classList.add('hidden');
+      document.getElementById('trabalhadorPrazo').classList.add('hidden');
+      if(tipoContrato === "indeterminado") {
+        document.getElementById('trabalhadorIndeterminado').classList.remove('hidden');
+      } else if(tipoContrato === "prazo") {
+        document.getElementById('trabalhadorPrazo').classList.remove('hidden');
+      }
+    }
+    
+    function updateTrabalhadorIndeterminado() {
+      const anoResp = document.getElementById('umAnoTrabalhador').value;
+      document.getElementById('trabalhadorIndeterminadoSim').classList.add('hidden');
+      document.getElementById('trabalhadorIndeterminadoNao').classList.add('hidden');
+      if(anoResp === "sim") {
+        document.getElementById('trabalhadorIndeterminadoSim').classList.remove('hidden');
+      } else if(anoResp === "nao") {
+        document.getElementById('trabalhadorIndeterminadoNao').classList.remove('hidden');
+      }
+    }
+    
+    function updateTrabalhadorMesesExtra() {
+      const resp = document.getElementById('mesesExtraTrabalhador').value;
+      if(resp === "sim") {
+        document.getElementById('trabalhadorMesesExtraInput').classList.remove('hidden');
+      } else {
+        document.getElementById('trabalhadorMesesExtraInput').classList.add('hidden');
+      }
+    }
+    
+    function updateTrabalhadorFerias() {
+      const resp = document.getElementById('feriasTrabalhador').value;
+      if(resp === "sim") {
+        document.getElementById('feriasInput').classList.remove('hidden');
+      } else {
+        document.getElementById('feriasInput').classList.add('hidden');
+      }
+    }
+    
+    function updateTrabalhadorPrazo() {
+      const tempoTipo = document.getElementById('tempoFaltanteTrabalhador').value;
+      document.getElementById('trabalhadorPrazoAnos').classList.add('hidden');
+      document.getElementById('trabalhadorPrazoMesesOnly').classList.add('hidden');
+      if(tempoTipo === "anos") {
+        document.getElementById('trabalhadorPrazoAnos').classList.remove('hidden');
+      } else if(tempoTipo === "meses") {
+        document.getElementById('trabalhadorPrazoMesesOnly').classList.remove('hidden');
+      }
+    }
+    
+    function updateTrabalhadorPrazoMeses() {
+      const resp = document.getElementById('mesesFaltandoPergTrabalhador').value;
+      if(resp === "sim") {
+        document.getElementById('trabalhadorPrazoMeses').classList.remove('hidden');
+      } else {
+        document.getElementById('trabalhadorPrazoMeses').classList.add('hidden');
+      }
+    }
+    
+    function updateFeriasTrabalhadorPrazo() {
+      const resp = document.getElementById('feriasTrabalhadorPrazo').value;
+      if(resp === "sim") {
+        document.getElementById('feriasTrabalhadorPrazoInput').classList.remove('hidden');
+      } else {
+        document.getElementById('feriasTrabalhadorPrazoInput').classList.add('hidden');
+      }
+    }
+    
+    // --- Seção Empregador ---
+    function updateEmpregadorForm() {
+      const tipoContrato = document.getElementById('contratoTipoEmpregador').value;
+      document.getElementById('empregadorIndeterminado').classList.add('hidden');
+      document.getElementById('empregadorPrazo').classList.add('hidden');
+      if(tipoContrato === "indeterminado") {
+        document.getElementById('empregadorIndeterminado').classList.remove('hidden');
+      } else if(tipoContrato === "prazo") {
+        document.getElementById('empregadorPrazo').classList.remove('hidden');
+      }
+    }
+    
+    function updateEmpregadorIndeterminado() {
+      const resp = document.getElementById('umAnoEmpregador').value;
+      document.getElementById('empregadorIndeterminadoSim').classList.add('hidden');
+      document.getElementById('empregadorIndeterminadoNao').classList.add('hidden');
+      if(resp === "sim") {
+        document.getElementById('empregadorIndeterminadoSim').classList.remove('hidden');
+      } else if(resp === "nao") {
+        document.getElementById('empregadorIndeterminadoNao').classList.remove('hidden');
+      }
+    }
+    
+    function updateEmpregadorMesesExtra() {
+      const resp = document.getElementById('mesesExtraEmpregador').value;
+      if(resp === "sim") {
+        document.getElementById('empregadorMesesExtraInput').classList.remove('hidden');
+      } else {
+        document.getElementById('empregadorMesesExtraInput').classList.add('hidden');
+      }
+    }
+    
+    function updateEmpregadorPrazo() {
+      const tempoTipo = document.getElementById('tempoFaltanteEmpregador').value;
+      document.getElementById('empregadorPrazoAnos').classList.add('hidden');
+      document.getElementById('empregadorPrazoMesesOnly').classList.add('hidden');
+      if(tempoTipo === "anos") {
+        document.getElementById('empregadorPrazoAnos').classList.remove('hidden');
+      } else if(tempoTipo === "meses") {
+        document.getElementById('empregadorPrazoMesesOnly').classList.remove('hidden');
+      }
+    }
+    
+    function updateEmpregadorPrazoMeses() {
+      const resp = document.getElementById('mesesFaltandoPergEmpregador').value;
+      if(resp === "sim") {
+        document.getElementById('empregadorPrazoMeses').classList.remove('hidden');
+      } else {
+        document.getElementById('empregadorPrazoMeses').classList.add('hidden');
+      }
+    }
+    
+    function updateFeriasEmpregador() {
+      const resp = document.getElementById('feriasEmpregador').value;
+      if(resp === "sim") {
+        document.getElementById('feriasEmpregadorInput').classList.remove('hidden');
+      } else {
+        document.getElementById('feriasEmpregadorInput').classList.add('hidden');
+      }
+    }
+    
+    // --- Seção Despedimento Ilícito ---
+    function updateIlicitoForm() {
+      const subTipo = document.getElementById('subTipoIlicito').value;
+      document.getElementById('ilicitoIndemnizacao').classList.add('hidden');
+      document.getElementById('ilicitoReintegracao').classList.add('hidden');
+      if(subTipo === "indemnizacao") {
+        document.getElementById('ilicitoIndemnizacao').classList.remove('hidden');
+      } else if(subTipo === "reintegracao") {
+        document.getElementById('ilicitoReintegracao').classList.remove('hidden');
+      }
+    }
+    
+    function updateIlicitoPrazo() {
+      const tempoTipo = document.getElementById('tempoFaltanteIlicito').value;
+      document.getElementById('ilicitoPrazoAnos').classList.add('hidden');
+      document.getElementById('ilicitoPrazoMesesOnly').classList.add('hidden');
+      if(tempoTipo === "anos") {
+        document.getElementById('ilicitoPrazoAnos').classList.remove('hidden');
+      } else if(tempoTipo === "meses") {
+        document.getElementById('ilicitoPrazoMesesOnly').classList.remove('hidden');
+      }
+    }
+    
+    function updateIlicitoPrazoMeses() {
+      const resp = document.getElementById('mesesFaltandoPergIlicito').value;
+      if(resp === "sim") {
+        document.getElementById('ilicitoPrazoMeses').classList.remove('hidden');
+      } else {
+        document.getElementById('ilicitoPrazoMeses').classList.add('hidden');
+      }
+    }
+    
+    function updateFeriasIlicito() {
+      const resp = document.getElementById('feriasIlicito').value;
+      if(resp === "sim") {
+        document.getElementById('feriasIlicitoInput').classList.remove('hidden');
+      } else {
+        document.getElementById('feriasIlicitoInput').classList.add('hidden');
+      }
+    }
+    
+    function updateFeriasReintegracao() {
+      const resp = document.getElementById('feriasReintegracao').value;
+      if(resp === "sim") {
+        document.getElementById('feriasReintegracaoInput').classList.remove('hidden');
+      } else {
+        document.getElementById('feriasReintegracaoInput').classList.add('hidden');
+      }
+    }
+    
+    // --- Funções de Cálculo Auxiliares ---
+    function calcularPrazoGenerico(salario, anos, meses) {
+      return salario * (anos + (meses/12));
+    }
+    
+    function calcularTrabalhadorIndeterminado(salario, anos, mesesExtra) {
+      return (salario/30) * 45 * (anos + (mesesExtra/12));
+    }
+    
+    function calcularTrabalhadorMenosAno(salario, mesesTrabalhado) {
+      return (salario/30) * 45 * (mesesTrabalhado/12);
+    }
+    
+    function calcularEmpregadorIndeterminado(salario, minSalary, anos, mesesExtra, mesesTrabalhado, trabalhouAno) {
+      let multiplier = 0;
+      if(salario <= 7 * minSalary) multiplier = 30;
+      else if(salario <= 18 * minSalary) multiplier = 15;
+      else multiplier = 5;
+      
+      if(trabalhouAno === "nao") {
+        return (salario/30) * multiplier * (mesesTrabalhado/12);
+      } else {
+        return (salario/30) * multiplier * (anos + (mesesExtra/12));
+      }
+    }
+    
+    function calcularIlicitoIndemnizacao(salario, anos, meses) {
+      return salario * (45/30 * anos + (meses/12));
+    }
+    
+    function calcularReintegracao(salario, tempo) {
+      if(tempo >= 6) return salario * 6;
+      else return salario * tempo;
+    }
+    
+    // --- Função principal de cálculo com validação dos dados ---
+    function calcular() {
+      let resultado = 0;
+      const tipo = document.getElementById('tipoIndemnizacao').value;
+      
+      if(!tipo) {
+        alert("Por favor, selecione o tipo de indemnização.");
+        return;
+      }
+      
+      // ---------------- Trabalhador ----------------
+      if(tipo === "trabalhador") {
+        const contratoTipo = document.getElementById('contratoTipoTrabalhador').value;
+        if(!contratoTipo) {
+          alert("Selecione o tipo de contrato para o trabalhador.");
+          return;
+        }
+        
+        if(contratoTipo === "indeterminado") {
+          const umAno = document.getElementById('umAnoTrabalhador').value;
+          if(!umAno) {
+            alert("Responda se trabalhou pelo menos um ano.");
+            return;
+          }
+          
+          if(umAno === "sim") {
+            const salario = parseFloat(document.getElementById('salarioTrabalhador').value);
+            const anos = parseFloat(document.getElementById('anosTrabalhado').value);
+            if(isNaN(salario) || isNaN(anos)) {
+              alert("Informe salário e anos trabalhados corretamente.");
+              return;
+            }
+            let mesesExtra = 0;
+            if(document.getElementById('mesesExtraTrabalhador').value === "sim") {
+              mesesExtra = parseFloat(document.getElementById('mesesExtraInput').value);
+              if(isNaN(mesesExtra)) {
+                alert("Informe os meses extras trabalhados.");
+                return;
+              }
+            }
+            resultado = calcularTrabalhadorIndeterminado(salario, anos, mesesExtra);
+            // Acrescenta férias, se houver
+            if(document.getElementById('feriasTrabalhador').value === "sim") {
+              let diasFerias = parseFloat(document.getElementById('diasFerias').value);
+              if(isNaN(diasFerias)) {
+                alert("Informe os dias de férias não gozadas.");
+                return;
+              }
+              resultado += (salario/30) * diasFerias;
+            }
+          } else if(umAno === "nao") {
+            const salario = parseFloat(document.getElementById('salarioTrabalhador').value);
+            const mesesTrabalhado = parseFloat(document.getElementById('mesesTrabalhado').value);
+            if(isNaN(salario) || isNaN(mesesTrabalhado)) {
+              alert("Informe salário e meses trabalhados corretamente.");
+              return;
+            }
+            resultado = calcularTrabalhadorMenosAno(salario, mesesTrabalhado);
+          }
+        } else if(contratoTipo === "prazo") {
+          const salario = parseFloat(document.getElementById('salarioTrabalhadorPrazo').value);
+          if(isNaN(salario)) {
+            alert("Informe o salário mensal.");
+            return;
+          }
+          const tempoTipo = document.getElementById('tempoFaltanteTrabalhador').value;
+          if(!tempoTipo) {
+            alert("Informe se o tempo faltante é em anos ou meses.");
+            return;
+          }
+          if(tempoTipo === "anos") {
+            const anos = parseFloat(document.getElementById('anosFaltandoTrabalhador').value);
+            if(isNaN(anos)) {
+              alert("Informe os anos restantes.");
+              return;
+            }
+            let meses = 0;
+            if(document.getElementById('mesesFaltandoPergTrabalhador').value === "sim") {
+              meses = parseFloat(document.getElementById('mesesFaltandoTrabalhador').value);
+              if(isNaN(meses)) {
+                alert("Informe os meses restantes.");
+                return;
+              }
+            }
+            resultado = calcularPrazoGenerico(salario, anos, meses);
+          } else if(tempoTipo === "meses") {
+            const meses = parseFloat(document.getElementById('mesesFaltandoOnlyTrabalhador').value);
+            if(isNaN(meses)) {
+              alert("Informe os meses restantes.");
+              return;
+            }
+            resultado = calcularPrazoGenerico(salario, 0, meses);
+          }
+          // Acrescenta férias para contrato prazo, se houver
+          if(document.getElementById('feriasTrabalhadorPrazo').value === "sim") {
+            let diasFerias = parseFloat(document.getElementById('diasFeriasTrabalhadorPrazo').value);
+            if(isNaN(diasFerias)) {
+              alert("Informe os dias de férias não gozadas.");
+              return;
+            }
+            resultado += (salario/30) * diasFerias;
+          }
+        }
+      }
+      // ---------------- Empregador ----------------
+      else if(tipo === "empregador") {
+        const contratoTipo = document.getElementById('contratoTipoEmpregador').value;
+        if(!contratoTipo) {
+          alert("Selecione o tipo de contrato para o empregador.");
+          return;
+        }
+        const minSalary = parseFloat(document.getElementById('salarioMinimoEmpregador').value);
+        if(isNaN(minSalary)) {
+          alert("Informe o salário mínimo do setor corretamente.");
+          return;
+        }
+        if(contratoTipo === "indeterminado") {
+          const salario = parseFloat(document.getElementById('salarioEmpregador').value);
+          if(isNaN(salario)) {
+            alert("Informe o salário mensal.");
+            return;
+          }
+          const umAno = document.getElementById('umAnoEmpregador').value;
+          if(!umAno) {
+            alert("Responda se trabalhou pelo menos um ano (empregador).");
+            return;
+          }
+          if(umAno === "sim") {
+            const anos = parseFloat(document.getElementById('anosEmpregador').value);
+            if(isNaN(anos)) {
+              alert("Informe os anos de serviço.");
+              return;
+            }
+            let mesesExtra = 0;
+            if(document.getElementById('mesesExtraEmpregador').value === "sim") {
+              mesesExtra = parseFloat(document.getElementById('mesesExtraEmpregadorInput').value);
+              if(isNaN(mesesExtra)) {
+                alert("Informe os meses extras trabalhados.");
+                return;
+              }
+            }
+            resultado = calcularEmpregadorIndeterminado(salario, minSalary, anos, mesesExtra, 0, "sim");
+          } else if(umAno === "nao") {
+            const mesesTrabalhado = parseFloat(document.getElementById('mesesTrabalhadoEmpregador').value);
+            if(isNaN(salario) || isNaN(mesesTrabalhado)) {
+              alert("Informe o salário e os meses trabalhados.");
+              return;
+            }
+            resultado = calcularEmpregadorIndeterminado(salario, minSalary, 0, 0, mesesTrabalhado, "nao");
+          }
+        } else if(contratoTipo === "prazo") {
+          const salario = parseFloat(document.getElementById('salarioEmpregadorPrazo').value);
+          if(isNaN(salario)) {
+            alert("Informe o salário mensal.");
+            return;
+          }
+          const tempoTipo = document.getElementById('tempoFaltanteEmpregador').value;
+          if(!tempoTipo) {
+            alert("Informe se o tempo faltante é em anos ou meses.");
+            return;
+          }
+          if(tempoTipo === "anos") {
+            const anos = parseFloat(document.getElementById('anosFaltandoEmpregador').value);
+            if(isNaN(anos)) {
+              alert("Informe os anos restantes.");
+              return;
+            }
+            let meses = 0;
+            if(document.getElementById('mesesFaltandoPergEmpregador').value === "sim") {
+              meses = parseFloat(document.getElementById('mesesFaltandoEmpregador').value);
+              if(isNaN(meses)) {
+                alert("Informe os meses restantes.");
+                return;
+              }
+            }
+            resultado = calcularPrazoGenerico(salario, anos, meses);
+          } else if(tempoTipo === "meses") {
+            const meses = parseFloat(document.getElementById('mesesFaltandoOnlyEmpregador').value);
+            if(isNaN(meses)) {
+              alert("Informe os meses restantes.");
+              return;
+            }
+            resultado = calcularPrazoGenerico(salario, 0, meses);
+          }
+        }
+        // Acrescenta férias para Empregador, se houver
+        if(document.getElementById('feriasEmpregador').value === "sim") {
+          let diasFerias = parseFloat(document.getElementById('diasFeriasEmpregador').value);
+          if(isNaN(diasFerias)) {
+            alert("Informe os dias de férias não gozadas.");
+            return;
+          }
+          // Define qual salário usar conforme o tipo de contrato
+          let salarioUtilizado = 0;
+          if(contratoTipo === "indeterminado") {
+            salarioUtilizado = parseFloat(document.getElementById('salarioEmpregador').value);
+          } else {
+            salarioUtilizado = parseFloat(document.getElementById('salarioEmpregadorPrazo').value);
+          }
+          resultado += (salarioUtilizado/30) * diasFerias;
+        }
+      }
+      // ---------------- Despedimento Ilícito ----------------
+      else if(tipo === "ilicit") {
+        const subTipo = document.getElementById('subTipoIlicito').value;
+        if(!subTipo) {
+          alert("Selecione entre indemnização ou reintegração.");
+          return;
+        }
+        if(subTipo === "indemnizacao") {
+          const salario = parseFloat(document.getElementById('salarioIlicito').value);
+          if(isNaN(salario)) {
+            alert("Informe o salário mensal.");
+            return;
+          }
+          const tempoTipo = document.getElementById('tempoFaltanteIlicito').value;
+          if(!tempoTipo) {
+            alert("Informe se o tempo faltante é em anos ou meses.");
+            return;
+          }
+          if(tempoTipo === "anos") {
+            const anos = parseFloat(document.getElementById('anosFaltandoIlicito').value);
+            if(isNaN(anos)) {
+              alert("Informe os anos restantes.");
+              return;
+            }
+            let meses = 0;
+            if(document.getElementById('mesesFaltandoPergIlicito').value === "sim") {
+              meses = parseFloat(document.getElementById('mesesFaltandoIlicito').value);
+              if(isNaN(meses)) {
+                alert("Informe os meses restantes.");
+                return;
+              }
+            }
+            resultado = calcularIlicitoIndemnizacao(salario, anos, meses);
+          } else if(tempoTipo === "meses") {
+            const meses = parseFloat(document.getElementById('mesesFaltandoOnlyIlicito').value);
+            if(isNaN(meses)) {
+              alert("Informe os meses restantes.");
+              return;
+            }
+            resultado = calcularIlicitoIndemnizacao(salario, 0, meses);
+          }
+          // Acrescenta férias para Indemnização, se houver
+          if(document.getElementById('feriasIlicito').value === "sim") {
+            let diasFerias = parseFloat(document.getElementById('diasFeriasIlicito').value);
+            if(isNaN(diasFerias)) {
+              alert("Informe os dias de férias não gozadas.");
+              return;
+            }
+            resultado += (salario/30) * diasFerias;
+          }
+        } else if(subTipo === "reintegracao") {
+          const salario = parseFloat(document.getElementById('salarioReintegracao').value);
+          const tempo = parseFloat(document.getElementById('tempoDesdeDespedimento').value);
+          if(isNaN(salario) || isNaN(tempo)) {
+            alert("Informe o salário e o tempo decorrido corretamente.");
+            return;
+          }
+          resultado = calcularReintegracao(salario, tempo);
+          // Acrescenta férias para Reintegração, se houver
+          if(document.getElementById('feriasReintegracao').value === "sim") {
+            let diasFerias = parseFloat(document.getElementById('diasFeriasReintegracao').value);
+            if(isNaN(diasFerias)) {
+              alert("Informe os dias de férias não gozadas.");
+              return;
+            }
+            resultado += (salario/30) * diasFerias;
+          }
+        }
+      }
+      
+      document.getElementById('resultado').innerHTML = "<h2>Indemnização Total: " + resultado.toFixed(2) + " MT</h2>";
+    }
+  </script>
+</body>
+</html>
