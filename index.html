@@ -267,14 +267,14 @@
           <label for="salarioIlicito">Salário mensal (MT):</label>
           <input type="number" id="salarioIlicito" step="0.01" min="0">
           
-          <label for="tempoFaltanteIlicito">Quanto tempo faltava para o contrato expirar?</label>
+          <label for="tempoFaltanteIlicito">Quanto tempo trabalhou?</label>
           <select id="tempoFaltanteIlicito" onchange="updateIlicitoPrazo()">
             <option value="">--Selecione--</option>
             <option value="anos">Anos</option>
             <option value="meses">Meses</option>
           </select>
           <div id="ilicitoPrazoAnos" class="hidden">
-            <label for="anosFaltandoIlicito">Anos restantes:</label>
+            <label for="anosFaltandoIlicito">Anos de trabalho:</label>
             <input type="number" id="anosFaltandoIlicito" step="0.1" min="0">
             <label for="mesesFaltandoPergIlicito">Para além desses anos faltam meses?</label>
             <select id="mesesFaltandoPergIlicito" onchange="updateIlicitoPrazoMeses()">
@@ -564,7 +564,7 @@
     }
     
     function calcularIlicitoIndemnizacao(salario, anos, meses) {
-      return salario * (45/30 * anos + (meses/12x45/10));
+      return salario * (45/30 * anos + (meses/12*45/30));
     }
     
     function calcularReintegracao(salario, tempo) {
