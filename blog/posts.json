@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "title": "O Direito à manifestações e o regime das faltas justificadas",
+        "date": "2025-02-25",
+        "author": "Alércio Simbine",
+        "file": "artigos/1.md",
+        "excerpt": "O artigo 112 da Lei do Trabalho estabelece, de forma aparentemente taxativa, uma enumeração das faltas jusitificadas..."
+    },
+    {
+        "id": 2,
+        "title": "O Direito à Licença por Adopção",
+        "date": "2025-02-25",
+        "file": "artigos/2.md",
+        "excerpt": "A falta de previsão de uma licença por adopção no regime das licenças por parentalidade, reforça uma hierarquia invisível do próprio conceito de parentalidade..."
+    }
+]

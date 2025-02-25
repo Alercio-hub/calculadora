@@ -1,4 +1,289 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatora de Indemnização Laboral -Tools & Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #00c3ff;
+        }
+
+        /* Dashboard Sections */
+        .section {
+            display: none;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        /* Welcome Page */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aplica a animação apenas ao h1 da welcome page */
+        #welcome h1{
+            animation: fadeIn 1.5s ease-out;
+            color: blue; /* Cor azul apenas para este h1 */
+        }
+        #welcome {
+            animation:forwards;
+            color: black;
+        }
+         /* Container principal */
+         .animation-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Estilo das bolinhas */
+        .bouncing-ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        /* Animação de salto */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            30% {
+                transform: translateY(-100px) scale(1.1);
+            }
+            50% {
+                transform: translateY(0) scale(0.9);
+            }
+        }
+
+        /* Calculator Styles */
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Blog Section */
+        .blog-post {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-post h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Calculator Selection Dashboard */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .calculator-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <img src="https://media.licdn.com/dms/image/D4D12AQHHs7oXWxCpLg/article-cover_image-shrink_600_2000/0/1688732813668?e=2147483647&v=beta&t=bWglcUMVtuJsZ0JawZ5810wfMnEbibbiTHuCZ03V6xo" alt="Logo" class="logo"> <!-- Replace your-logo.png -->
+        <div class="nav-links">
+            <a href="#" class="nav-link" onclick="showSection('welcome')">Home</a>
+            <a href="#" class="nav-link" onclick="showSection('calculators')">Calculadora</a>
+            <a href="#" class="nav-link" onclick="showSection('blog')">Blog</a>
+            <a href="#" class="nav-link" onclick="showSection('contact')">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="section active-section">
+      <div class="animation-container">
+          <h1 class="title">Bem-Vindo à Calculadora Online de Indemnização!</h1>
+  
+          <p class="intro">
+              Esta calculadora foi criada com o objectivo de facilitar o cálculo de indemnização 
+              resultante da cessação do contrato de trabalho.
+          </p>
+  
+          <div class="highlight-box">
+              <h2 class="subtitle">O que vais encontrar aqui?</h2>
+              <ul>
+                  <li><strong>Calculadora de Indemnização</strong></li>
+                  <li><strong>Calculadora de Compensação</strong> (trabalho extraordinário, nocturno e excepcional)</li>
+                  <li><strong>Calculadora de Férias</strong></li>
+              </ul>
+          </div>
+  
+          <p class="blog-info">
+              Na secção <strong>Blog</strong>, podes ler artigos sobre aspectos jurídicos importantes.
+          </p>
+  
+          <p class="note"><strong>Espero que tires o maior proveito!</strong></p>
+  
+          <footer class="footer">
+              <p class="important-note">
+                  <strong>Nota:</strong> A calculadora não substitui a necessidade de consulta a um advogado.
+              </p>
+              <p class="disclaimer">
+                  <em>Este site tem uma finalidade meramente educacional e não presta consultoria jurídica 
+                  nem faz publicidade a serviços de advocacia.</em>
+              </p>
+              <p class="contact">
+                  <strong>Para serviços de tutoria em disciplinas de Direito, estudantes universitários podem 
+                  entrar em contacto através da secção de contacto.</strong>
+              </p>
+              <p class="creator"><strong>Criada por Alércio R. Simbine</strong></p>
+          </footer>
+      </div>
+  </section>
+  
+          
+            <!-- As bolinhas serão inseridas aqui via JavaScript -->
+            <div id="balls-container" style="position: relative; z-index: 1;">   
+
+      </div>
+      <script>
+        function createBalls() {
+            const container = document.getElementById('balls-container');
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeead', '#ff9999'];
+            
+            // Cria 15 bolinhas
+            for (let i = 0; i < 15; i++) {
+                const ball = document.createElement('div');
+                ball.className = 'bouncing-ball';
+                
+                // Estilos aleatórios
+                ball.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                ball.style.left = Math.random() * 100 + 'vw';
+                ball.style.animationDelay = Math.random() * 2 + 's';
+                ball.style.width = ball.style.height = (10 + Math.random() * 20) + 'px';
+                
+                container.appendChild(ball);
+            }
+        }
+
+        // Cria as bolinhas quando a página carregar
+        window.onload = createBalls;
+    </script>
+    </section>
+
+    <!-- Calculator Dashboard -->
+    <section id="calculators" class="section">
+        <div class="calculator-grid">
+            <div class="calculator-card" onclick="showSection('basic-calc')">
+                <h3 style="color:#1e3c72">Calculadora de Indemnização</h3>
+                <p>Clique para o calcular diferentes indemnizações laborais</p>
+            </div>
+            <div class="calculator-card" onclick="showSection('scientific-calc')">
+                <h3 style="color:green">Calculadora de Compensação</h3>
+                <p>Clique e calcule compensação por Trabalho Nocturno, Extraordinário e Excepcional</p>
+            </div>
+            <div class="calculator-card" onclick="showSection('ferias-calc')">
+                <h3 style="color:#333"><a href="./ferias.html">Calculadora de férias</a></h3>
+               <p><a href="./ferias.html">Clique para o calcular o valor das férias acumuladas</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+      <div class="blog-container">
+          <h1><a href="blog.html" target="_blank" class="blog-button">Acessar Blog</a></h1>
+          <div id="posts-list" class="blog-grid"></div>
+      </div>
+  </section>
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="contact">
+          <div class="contact-post">
+              <h1><strong>SOBRE MIM</strong></h1>
+              <p>Alércio Simbine é um jurista formado pela universidade Eduardo Mondlane, com experiência em tutoria, na assistência jurídica e como gestor de conteúdo.</p>
+              <p>Nos tempos gosta de ler e escrever romances, contos e novelas, é apaixonado pela música de Bob Dylan e admira os livros de Dostoevsky e Murakami.</p>
+              <p>É obcecado por aprender, por isso absorve tudo que encontra em frente. No momento desenvolve conhecimentos sobre Web Development e Programação em Python, com foco em Machine Learning.</p>
+              <p>Busca por oportunidades de emprego desafiantes, que exijam aprendizado diário e constante necessidade de adaptação, num ambinte exigente e em que no lugar de trabalhador é visto como colaborador.</p>
+              <div><h2><strong>Os meus contactos estão abaixo para qualquer proposta de emprego ou serviços de tutoria em Direito</strong></div></h2>
+              <p><h3><strong>Email:</strong> <em>simbinealercio@gmail.com</em></h3></p>
+              <p><h3><strong>Mobile Phone:</strong> <em> +258 834102141</em></h3></p>
+          </div>
+      </div>
+  </section>
+
+    <!-- Basic Calculator -->
+    <section id="basic-calc" class="section">
+        <div class="calculator">
+           
+<!DOCTYPE html>
 <html lang="pt">
 <head>
     
@@ -107,8 +392,11 @@
 
           <!-- Se NÃO (menos de um ano) -->
           <div id="trabalhadorIndeterminadoNao" class="hidden">
-            <label for="mesesTrabalhado">Quantos meses trabalhou?</label>
-            <input type="number" id="mesesTrabalhado" step="0.1" min="0">
+         <label for="salarioTrabalhadorNao">Salário mensal (MT):</label>
+          <input type="number" id="salarioTrabalhadorNao" step="0.01" min="0">
+  
+         <label for="mesesTrabalhadoNao">Quantos meses trabalhou?</label>
+          <input type="number" id="mesesTrabalhadoNao" step="0.1" min="0">
           </div>
         </div>
 
@@ -336,7 +624,6 @@
 
   <footer>
     <p>Nota: Essa calculadora não substitui a necessidade de consulta a um advogado.</p>
-    <p><strong>Criada por Alércio R. Simbine<strong></p>
   </footer>
 
   <script>
@@ -540,7 +827,7 @@
     
     // --- Funções de Cálculo Auxiliares ---
     function calcularPrazoGenerico(salario, anos, meses) {
-      return salario * (anos + (meses/12));
+      return salario * (anos*12 + (meses/12));
     }
     
     function calcularTrabalhadorIndeterminado(salario, anos, mesesExtra) {
@@ -624,8 +911,8 @@
               resultado += (salario/30) * diasFerias;
             }
           } else if(umAno === "nao") {
-            const salario = parseFloat(document.getElementById('salarioTrabalhador').value);
-            const mesesTrabalhado = parseFloat(document.getElementById('mesesTrabalhado').value);
+            const salario = parseFloat(document.getElementById('salarioTrabalhadorNao').value);
+            const mesesTrabalhado = parseFloat(document.getElementById('mesesTrabalhadoNao').value);
             if(isNaN(salario) || isNaN(mesesTrabalhado)) {
               alert("Informe salário e meses trabalhados corretamente.");
               return;
@@ -848,5 +1135,307 @@
       document.getElementById('resultado').innerHTML = "<h2>Indemnização Total: " + resultado.toFixed(2) + " MT</h2>";
     }
   </script>
+</body>
+</html>
+        </div>
+    </section>
+
+    <!-- Scientific Calculator (Add your scientific calculator HTML here) -->
+    <section id="scientific-calc" class="section">
+        <!DOCTYPE html>
+        <html lang="pt">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Calculadora de Compensação</title>
+          <style>
+            /* Estilos gerais */
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f4f4;
+              margin: 0;
+              padding: 20px;
+            }
+            .container {
+              max-width: 800px;
+              margin: 0 auto;
+              background: #fff;
+              padding: 20px 30px;
+              border-radius: 5px;
+              box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            h1, h2, h3 {
+              text-align: center;
+            }
+            .form-group {
+              margin-bottom: 15px;
+            }
+            label {
+              display: block;
+              margin-bottom: 5px;
+            }
+            input[type="number"],
+            select {
+              width: 100%;
+              padding: 8px;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 3px;
+            }
+            button {
+              background-color: #28a745;
+              color: #fff;
+              border: none;
+              padding: 10px 15px;
+              font-size: 16px;
+              cursor: pointer;
+              border-radius: 3px;
+              width: 100%;
+              margin-top: 10px;
+            }
+            button:hover {
+              background-color: #218838;
+            }
+            .result {
+              background-color: #e9ecef;
+              padding: 15px;
+              border-radius: 5px;
+              margin-top: 20px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>Calculadora de Compensação</h1>
+            <form id="calculatorForm">
+              
+              <!-- Seleção do tipo de trabalho -->
+              <div class="form-group">
+                <label for="workType">Tipo de Trabalho:</label>
+                <select id="workType" required>
+                  <option value="">Selecione</option>
+                  <option value="extraordinario">Extraordinário</option>
+                  <option value="excepcional">Excepcional</option>
+                  <option value="noturno">Noturno</option>
+                </select>
+              </div>
+              
+              <!-- Campos comuns para todos os tipos -->
+              <div id="commonFields" style="display: none;">
+                <div class="form-group">
+                  <label for="salarioMensal">Salário Mensal (MT):</label>
+                  <input type="number" id="salarioMensal" step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                  <label for="horasDiarias">Período normal de trabalho (horas por dia):</label>
+                  <select id="horasDiarias">
+                    <option value="">Selecione</option>
+                    <option value="8">8 horas</option>
+                    <option value="9">9 horas</option>
+                    <option value="12">12 horas</option>
+                  </select>
+                </div>
+              </div>
+              
+              <!-- Campos específicos para Trabalho Extraordinário -->
+              <div id="extraordinarioFields" style="display: none;">
+                <div class="form-group">
+                  <label for="periodoExtra">Período de trabalho extraordinário:</label>
+                  <select id="periodoExtra">
+                    <option value="">Selecione</option>
+                    <option value="ate24">Até as 24 horas (acréscimo de 50%)</option>
+                    <option value="apos24">Após as 24 horas (acréscimo de 100%)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="horasExtra">Quantas horas de trabalho extraordinário prestou?</label>
+                  <input type="number" id="horasExtra" step="0.01" min="0">
+                </div>
+              </div>
+              
+              <!-- Campos específicos para Trabalho Excepcional -->
+              <div id="excepcionalFields" style="display: none;">
+                <div class="form-group">
+                  <label for="horasExcepcional">Quantas horas de trabalho excepcional prestou?</label>
+                  <input type="number" id="horasExcepcional" step="0.01" min="0">
+                </div>
+              </div>
+              
+              <!-- Campos específicos para Trabalho Noturno -->
+              <div id="noturnoFields" style="display: none;">
+                <div class="form-group">
+                  <label for="horasNoturno">Quantas horas de trabalho noturno prestou?</label>
+                  <input type="number" id="horasNoturno" step="0.01" min="0">
+                </div>
+              </div>
+              
+              <button type="submit">Calcular</button>
+            </form>
+            
+            <div class="result" id="result">
+              <!-- Os resultados serão exibidos aqui -->
+            </div>
+          </div>
+          
+          <script>
+            // Função para limpar os campos dentro de uma seção
+            function limparCampos(section) {
+              section.querySelectorAll("input, select").forEach(function(el) {
+                el.value = "";
+              });
+            }
+            
+            // Função para atualizar a visibilidade, estado (disabled/required) e limpar os campos
+            function updateFields() {
+              var workType = document.getElementById("workType").value;
+              var commonFields = document.getElementById("commonFields");
+              var extraordinarioFields = document.getElementById("extraordinarioFields");
+              var excepcionalFields = document.getElementById("excepcionalFields");
+              var noturnoFields = document.getElementById("noturnoFields");
+        
+              // Limpar todos os campos sempre que houver mudança
+              [commonFields, extraordinarioFields, excepcionalFields, noturnoFields].forEach(function(section) {
+                limparCampos(section);
+              });
+        
+              if (workType !== "") {
+                commonFields.style.display = "block";
+                // Ativa os campos comuns
+                commonFields.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = false;
+                  el.required = true;
+                });
+              } else {
+                commonFields.style.display = "none";
+                commonFields.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = true;
+                  el.required = false;
+                });
+              }
+              
+              // Oculta e desabilita todos os campos específicos
+              [extraordinarioFields, excepcionalFields, noturnoFields].forEach(function(section) {
+                section.style.display = "none";
+                section.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = true;
+                  el.required = false;
+                });
+              });
+              
+              // Exibe e ativa os campos específicos de acordo com o tipo de trabalho selecionado
+              if (workType === "extraordinario") {
+                extraordinarioFields.style.display = "block";
+                extraordinarioFields.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = false;
+                  el.required = true;
+                });
+              } else if (workType === "excepcional") {
+                excepcionalFields.style.display = "block";
+                excepcionalFields.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = false;
+                  el.required = true;
+                });
+              } else if (workType === "noturno") {
+                noturnoFields.style.display = "block";
+                noturnoFields.querySelectorAll("input, select").forEach(function(el) {
+                  el.disabled = false;
+                  el.required = true;
+                });
+              }
+            }
+            
+            document.getElementById("workType").addEventListener("change", updateFields);
+            
+            // Tratamento do envio do formulário e cálculo
+            document.getElementById("calculatorForm").addEventListener("submit", function(event) {
+              event.preventDefault();
+              
+              var workType = document.getElementById("workType").value;
+              var salarioMensal = parseFloat(document.getElementById("salarioMensal").value);
+              var horasDiarias = parseFloat(document.getElementById("horasDiarias").value);
+              
+              // Cálculo do salário diário e do valor da hora normal
+              var salarioDiario = salarioMensal / 30;
+              var valorHora = salarioDiario / horasDiarias;
+              
+              var resultHTML = "";
+              
+              if (workType === "extraordinario") {
+                var periodoExtra = document.getElementById("periodoExtra").value;
+                var horasExtra = parseFloat(document.getElementById("horasExtra").value);
+                var remuneracaoNormal = valorHora * horasExtra;
+                
+                if (periodoExtra === "ate24") {
+                  // Acrescenta 50%
+                  var adicional = remuneracaoNormal * 0.50;
+                  var total = remuneracaoNormal + adicional;
+                  resultHTML += "<h2>Trabalho Extraordinário (Até as 24 horas)</h2>";
+                  resultHTML += "<p>Valor da remuneração normal para " + horasExtra + " horas: " + remuneracaoNormal.toFixed(2) + " MT</p>";
+                  resultHTML += "<p>Adicional de 50%: " + adicional.toFixed(2) + " MT</p>";
+                  resultHTML += "<p><strong>Total: " + total.toFixed(2) + " MT</strong></p>";
+                } else if (periodoExtra === "apos24") {
+                  // Acrescenta 100%
+                  var adicional = remuneracaoNormal * 1.00;
+                  var total = remuneracaoNormal + adicional;
+                  resultHTML += "<h2>Trabalho Extraordinário (Após as 24 horas)</h2>";
+                  resultHTML += "<p>Valor da remuneração normal para " + horasExtra + " horas: " + remuneracaoNormal.toFixed(2) + " MT</p>";
+                  resultHTML += "<p>Adicional de 100%: " + adicional.toFixed(2) + " MT</p>";
+                  resultHTML += "<p><strong>Total: " + total.toFixed(2) + " MT</strong></p>";
+                } else {
+                  resultHTML += "<p>Selecione o período de trabalho extraordinário.</p>";
+                }
+                
+              } else if (workType === "excepcional") {
+                var horasExcepcional = parseFloat(document.getElementById("horasExcepcional").value);
+                var remuneracaoNormal = valorHora * horasExcepcional;
+                var adicional = remuneracaoNormal * 1.00; // 100%
+                var total = remuneracaoNormal + adicional;
+                resultHTML += "<h2>Trabalho Excepcional</h2>";
+                resultHTML += "<p>Valor da remuneração normal para " + horasExcepcional + " horas: " + remuneracaoNormal.toFixed(2) + " MT</p>";
+                resultHTML += "<p>Adicional de 100%: " + adicional.toFixed(2) + " MT</p>";
+                resultHTML += "<p><strong>Total: " + total.toFixed(2) + " MT</strong></p>";
+                
+              } else if (workType === "noturno") {
+                var horasNoturno = parseFloat(document.getElementById("horasNoturno").value);
+                var remuneracaoNormal = valorHora * horasNoturno;
+                var adicional = remuneracaoNormal * 0.25; // 25%
+                var total = remuneracaoNormal + adicional;
+                resultHTML += "<h2>Trabalho Noturno</h2>";
+                resultHTML += "<p>Valor da remuneração normal para " + horasNoturno + " horas: " + remuneracaoNormal.toFixed(2) + " MT</p>";
+                resultHTML += "<p>Adicional de 25%: " + adicional.toFixed(2) + " MT</p>";
+                resultHTML += "<p><strong>Total: " + total.toFixed(2) + " MT</strong></p>";
+                
+              } else {
+                resultHTML += "<p>Selecione um tipo de trabalho.</p>";
+              }
+              
+              document.getElementById("result").innerHTML = resultHTML;
+            });
+          </script>
+        </body>
+        </html>
+              
+
+    </section>
+
+  
+
+
+    <script>
+        // Navigation control
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active-section');
+        }
+
+        // Your existing calculator JavaScript
+        let display = document.getElementById('display');
+        // ... rest of your calculator functions ...
+    </script>
 </body>
 </html>

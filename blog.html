@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog - Sabias que?</title>
+  <style>
+    /* Reset básico e fontes */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #1e3c72;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 20px;
+      font-weight: bold;
+    }
+    .navbar .logo {
+      height: 40px;
+    }
+    .navbar .sabias {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .navbar .sabias a {
+      color: #00c3ff;
+      text-decoration: none;
+      margin-left: 5px;
+    }
+    /* Layout: sidebar + main content */
+    .container {
+      display: flex;
+      margin: 20px;
+    }
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-right: 20px;
+      border-radius: 5px;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #1e3c72;
+    }
+    .sidebar select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .main-content {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+    .main-content h1 {
+      color: #1e3c72;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        margin: 10px;
+      }
+      .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="index.html">
+        <img src="https://media.licdn.com/dms/image/D4D12AQHHs7oXWxCpLg/article-cover_image-shrink_600_2000/0/1688732813668?e=2147483647&v=beta&t=bWglcUMVtuJsZ0JawZ5810wfMnEbibbiTHuCZ03V6xo" alt="Logo" class="logo">
+
+    </div>
+    <div class="navbar-center">
+      <a href="index.html" class="nav-link">Página Principal</a>
+    </div>
+    <div class="navbar-right">
+      <span class="sabias">Sabias que?</span>
+      <a href="#" class="nav-link">Veja mais</a>
+    </div>
+  </nav>
+
+  <!-- Container principal -->
+  <div class="container">
+    <!-- Sidebar com dropdown para artigos -->
+    <aside class="sidebar">
+      <h3>Artigos Publicados</h3>
+      <select id="articleDropdown" onchange="if(this.value){ window.location.href=this.value; }">
+        <option value="">Selecione um artigo</option>
+        <option value= ./blog/artigos/artigo1.html>Artigo 1: Direito à Licença por Adopção</option>
+        <option value=./blog/artigos/artigo2.html>Artigo 2: O direito à manifestações e o regime das faltas justificadas</option>
+        <option value=./blog/artigos/artigo3.html>Artigo 3: A inteligência artificial e o fim do capitalismo</option>
+        <!-- Adicione mais artigos conforme necessário -->
+      </select>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+      <h1>Bem-vindo ao Blog!</h1>
+      <p>Aqui você encontrará artigos e informações relevantes sobre temas jurídicos e um pouco sobre cultura geral e política.</p>
+      <!-- Aqui você pode adicionar mais conteúdos, imagens ou destaques -->
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+.blog-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.post-card {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#article-reader {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+#article-content {
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+#article-content h2 {
+    color: #1e3c72;
+    margin: 1rem 0;
+}
