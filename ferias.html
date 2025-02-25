@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de Férias</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #1e3c72;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #00c3ff;
+    }
+
+    /* Container */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .result {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html">
+      <img src="https://media.licdn.com/dms/image/D4D12AQHHs7oXWxCpLg/article-cover_image-shrink_600_2000/0/1688732813668?e=2147483647&v=beta&t=bWglcUMVtuJsZ0JawZ5810wfMnEbibbiTHuCZ03V6xo" alt="Logo" class="logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Página Principal</a>
+      <a href="ferias.html" class="nav-link">Calculadora de Férias</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Calculadora de Férias</h1>
+    <form id="feriasForm">
+      <div class="form-group">
+        <label for="salarioMensal">Salário Mensal (MT):</label>
+        <input type="number" id="salarioMensal" step="0.01" min="0" required>
+      </div>
+      <div class="form-group">
+        <label for="diasFerias">Dias de Férias Não Gozadas Acumuladas:</label>
+        <input type="number" id="diasFerias" min="0" required>
+      </div>
+      <button type="submit">Calcular</button>
+    </form>
+    <div class="result" id="resultado"></div>
+  </div>
+
+  <script>
+    document.getElementById("feriasForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      var salarioMensal = parseFloat(document.getElementById("salarioMensal").value);
+      var diasFerias = parseFloat(document.getElementById("diasFerias").value);
+      
+      if (isNaN(salarioMensal) || isNaN(diasFerias)) {
+        document.getElementById("resultado").innerHTML = "Por favor, preencha os campos corretamente.";
+        return;
+      }
+      
+      var salarioDiario = salarioMensal / 30;
+      var totalFerias = salarioDiario * diasFerias;
+      
+      document.getElementById("resultado").innerHTML = 
+        "<h2>Valor das Férias: " + totalFerias.toFixed(2) + " MT</h2>";
+    });
+  </script>
+
+</body>
+</html>
