@@ -2,158 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calculadora de Indemnização Laboral -Tools & Blog</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6503584415556857"
      crossorigin="anonymous"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      /* Adicione isso ao início do seu CSS */
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
+/* Modifique o container principal */
+.animation-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
 
-        /* Navigation */
-        .navbar {
-            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+/* Ajuste a seção welcome */
+#welcome {
+    flex: 1;
+    padding: 1rem;
+    animation: forwards;
+    color: black;
+}
 
-        .logo {
-            height: 40px;
-            margin-right: 2rem;
-        }
+/* Atualize as sections */
+.section {
+    display: none;
+    padding: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 1rem auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
+/* Navbar responsiva */
+.navbar {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+}
 
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+.nav-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
-        .nav-link:hover {
-            color: #00c3ff;
-        }
+/* Ajuste cards para mobile */
+.calculator-grid {
+    grid-template-columns: 1fr;
+}
 
-        /* Dashboard Sections */
-        .section {
-            display: none;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 2rem auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .active-section {
-            display: block;
-        }
-
-        /* Welcome Page */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Aplica a animação apenas ao h1 da welcome page */
-        #welcome h1{
-            animation: fadeIn 1.5s ease-out;
-            color: blue; /* Cor azul apenas para este h1 */
-        }
-        #welcome {
-            animation:forwards;
-            color: black;
-        }
-         /* Container principal */
-         .animation-container {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Estilo das bolinhas */
-        .bouncing-ball {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            animation: bounce 2s infinite ease-in-out;
-        }
-
-        /* Animação de salto */
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            30% {
-                transform: translateY(-100px) scale(1.1);
-            }
-            50% {
-                transform: translateY(0) scale(0.9);
-            }
-        }
-
-        /* Calculator Styles */
-        .calculator {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        /* Blog Section */
-        .blog-post {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .blog-post h3 {
-            color: #1e3c72;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Calculator Selection Dashboard */
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .calculator-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .calculator-card:hover {
-            transform: translateY(-5px);
-        }
+/* Media queries para telas pequenas */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .navbar {
+        padding: 0.5rem;
+    }
+    
+    .nav-links {
+        gap: 0.5rem;
+    }
+    
+    .calculator-card {
+        padding: 1rem;
+    }
+    
+    #welcome h1 {
+        font-size: 1.5rem;
+    }
+}
     </style>
 </head>
 <body>
