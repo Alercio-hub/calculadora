@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Acesse sua Conta</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      color: #1e3c72;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input[type="email"],
+    input[type="password"] {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    input[type="submit"] {
+      padding: 10px;
+      background: #1e3c72;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .link a {
+      color: #1e3c72;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login de Usuário</h2>
+    <form id="loginForm" action="#" method="POST">
+      <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+      <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+      <input type="submit" value="Entrar">
+    </form>
+    <div class="link">
+      <p>Não possui conta? <a href="signup.html">Cadastre-se</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Aqui você deve fazer uma requisição para um endpoint do Google Apps Script
+      // que valide as credenciais armazenadas no Google Sheets.
+      fetch('https://script.google.com/macros/s/AKfycbxZt8eZYTYlPdKMt5RBBdJsOtmF_HG2YNQMwPIqauUOnMqLywfZEfmSE5pF9x-K_rbF9A/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Redireciona para a página de cursos após login bem-sucedido
+          window.location.href = 'curso.html';
+        } else {
+          alert('Login ou senha incorretos.');
+        }
+      })
+      .catch(error => {
+        console.error('Erro no login:', error);
+        alert('Ocorreu um erro. Tente novamente mais tarde.');
+      });
+    });
+  </script>
+</body>
+</html>

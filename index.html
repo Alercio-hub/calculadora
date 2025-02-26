@@ -178,52 +178,98 @@
         <div class="nav-links">
             <a href="#" class="nav-link" onclick="showSection('welcome')">Home</a>
             <a href="#" class="nav-link" onclick="showSection('calculators')">Calculadora</a>
-            <a href="#" class="nav-link" onclick="showSection('blog')">Blog</a>
+            <a href="blog.html" class = "nav-link"> Blog</a>
+            <a href="curso.html" class = "nav-link"> Cursos</a>
             <a href="#" class="nav-link" onclick="showSection('contact')">Contacto</a>
         </div>
     </nav>
 
-    <!-- Welcome Section -->
-    <section id="welcome" class="section active-section">
-      <div class="animation-container">
-          <h1 class="title">Bem-Vindo à Calculadora Online de Indemnização!</h1>
-  
-          <p class="intro">
-              Esta calculadora foi criada com o objectivo de facilitar o cálculo de indemnização 
-              resultante da cessação do contrato de trabalho.
-          </p>
-  
-          <div class="highlight-box">
-              <h2 class="subtitle">O que vais encontrar aqui?</h2>
-              <ul>
-                  <li><strong>Calculadora de Indemnização</strong></li>
-                  <li><strong>Calculadora de Compensação</strong> (trabalho extraordinário, nocturno e excepcional)</li>
-                  <li><strong>Calculadora de Férias</strong></li>
-              </ul>
-          </div>
-  
-          <p class="blog-info">
-              Na secção <strong>Blog</strong>, podes ler artigos sobre aspectos jurídicos importantes.
-          </p>
-  
-          <p class="note"><strong>Espero que tires o maior proveito!</strong></p>
-  
-          <footer class="footer">
-              <p class="important-note">
-                  <strong>Nota:</strong> A calculadora não substitui a necessidade de consulta a um advogado.
-              </p>
-              <p class="disclaimer">
-                  <em>Este site tem uma finalidade meramente educacional e não presta consultoria jurídica 
-                  nem faz publicidade a serviços de advocacia.</em>
-              </p>
-              <p class="contact">
-                  <strong>Para serviços de tutoria em disciplinas de Direito, estudantes universitários podem 
-                  entrar em contacto através da secção de contacto.</strong>
-              </p>
-              <p class="creator"><strong>Criada por Alércio R. Simbine</strong></p>
-          </footer>
+   <!-- Welcome Section -->
+<section id="welcome" class="section active-section">
+  <div class="welcome-overlay"></div>
+  <div class="animation-container">
+      <h1 class="title">Bem-Vindo à Calculadora Online de Indemnização!</h1>
+
+      <p class="intro">
+          Esta calculadora foi criada com o objectivo de facilitar o cálculo de indemnização 
+          resultante da cessação do contrato de trabalho.
+      </p>
+
+      <div class="highlight-box">
+          <h2 class="subtitle">O que vais encontrar aqui?</h2>
+          <ul>
+              <li><strong>Calculadora de Indemnização</strong></li>
+              <li><strong>Calculadora de Compensação</strong> (trabalho extraordinário, nocturno e excepcional)</li>
+              <li><strong>Calculadora de Férias</strong></li>
+          </ul>
       </div>
-  </section>
+
+      <p class="blog-info">
+          Na secção <strong>Blog</strong>, podes ler artigos sobre aspectos jurídicos importantes.
+      </p>
+      <p class="blog-info">
+        Na secção <strong>Cursos</strong>, podes aceder a um curso completo de Direito, com aulas simples de várias disciplinas do curso de Direito.
+    </p>
+
+      <p class="note"><strong>Espero que tires o maior proveito!</strong></p>
+
+      <footer class="footer">
+          <p class="important-note">
+              <strong>Nota:</strong> A calculadora não substitui a necessidade de consulta a um advogado.
+          </p>
+          <p class="disclaimer">
+              <em>Este site tem uma finalidade meramente educacional e não presta consultoria jurídica 
+              nem faz publicidade a serviços de advocacia.</em>
+          </p>
+          <p class="contact">
+              <strong>Para serviços de tutoria em disciplinas de Direito, estudantes universitários podem 
+              entrar em contacto através da secção de contacto.</strong>
+          </p>
+          <p class="creator"><strong>Criada por Alércio R. Simbine</strong></p>
+      </footer>
+  </div>
+</section>
+
+<style>
+  #welcome {
+      position: relative;
+      background: url('background.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      border-radius: 12px;
+      overflow: hidden;
+  }
+
+  .welcome-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 4, 173, 0.815);
+      z-index: 1;
+  }
+
+  .animation-container {
+      position: relative;
+      z-index: 2;
+  }
+
+  .highlight-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px auto;
+      display: inline-block;
+  }
+
+  .footer p {
+      font-size: 14px;
+      opacity: 0.9;
+  }
+</style>
+
   
           
             <!-- As bolinhas serão inseridas aqui via JavaScript -->
@@ -267,9 +313,10 @@
                 <p>Clique e calcule compensação por Trabalho Nocturno, Extraordinário e Excepcional</p>
             </div>
             <div class="calculator-card" onclick="showSection('ferias-calc')">
-                <h3 style="color:#333"><a href="./ferias.html">Calculadora de férias</a></h3>
-               <p><a href="./ferias.html">Clique para o calcular o valor das férias acumuladas</a></p>
-            </div>
+  
+                <h3 style="color:#333"><a href="./ferias.html" style="text-decoration: none">Calculadora de férias</a></h3>
+               <p><a href="./ferias.html" style= "text-decoration: none">Clique para o calcular o valor das férias acumuladas</a></p>
+                  </div>
         </div>
     </section>
 
@@ -593,7 +640,7 @@
             </div>
           </div>
           <div id="ilicitoPrazoMesesOnly" class="hidden">
-            <label for="mesesFaltandoOnlyIlicito">Meses restantes:</label>
+            <label for="mesesFaltandoOnlyIlicito">Meses trabalhados:</label>
             <input type="number" id="mesesFaltandoOnlyIlicito" step="0.1" min="0">
           </div>
           <!-- Férias Não Gozadas para Indemnização -->
@@ -844,7 +891,7 @@
     
     // --- Funções de Cálculo Auxiliares ---
     function calcularPrazoGenerico(salario, anos, meses) {
-      return salario * (anos*12 + (meses/12));
+      return salario * (anos*12 + meses);
     }
     
     function calcularTrabalhadorIndeterminado(salario, anos, mesesExtra) {

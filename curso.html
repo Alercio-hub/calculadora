@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard de Cursos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+    .navbar { background: #1e3c72; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; }
+    .navbar a { color: #fff; text-decoration: none; margin-right: 10px; }
+    .container { padding: 20px; }
+    .course-card {
+      background: #fff; padding: 20px; margin-bottom: 20px;
+      border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .progress-container {
+      width: 100%; background: #ddd; border-radius: 25px; margin: 10px 0;
+    }
+    .progress-bar {
+      height: 20px; background: #4CAF50; border-radius: 25px;
+      text-align: center; color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div>
+      <a href="blog.html">Blog</a>
+      <a href="curso.html">Cursos</a>
+      <a href="index.html">Calculadora</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Dashboard de Cursos</h1>
+    <div id="courses">
+      <!-- Aqui os cards dos cursos serão renderizados via JavaScript -->
+    </div>
+  </div>
+  <script>
+    // Exemplo de cursos com total de aulas e link para a página do curso
+    const courses = {
+      curso1: { title: "Curso de Direito da Inteligência Artificial e das Máquinas", totalLessons: 3, link: "cursos/curso1.html" },
+      curso2: { title: "Curso de Direito Digital", totalLessons: 3, link: "cursos/curso2.html" }
+    };
+
+    function renderCourses() {
+      const coursesDiv = document.getElementById('courses');
+      coursesDiv.innerHTML = '';
+      for (const key in courses) {
+        const course = courses[key];
+        // Recupera o progresso salvo (ou 0, se não existir)
+        let progress = Number(localStorage.getItem('progress_' + key)) || 0;
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <h2>${course.title}</h2>
+          <div class="progress-container">
+            <div class="progress-bar" style="width:${progress}%;">${progress}%</div>
+          </div>
+          <a href="${course.link}">Ir para o curso</a>
+        `;
+        coursesDiv.appendChild(card);
+      }
+    }
+
+    // Renderiza os cursos ao carregar a página
+    renderCourses();
+  </script>
+</body>
+</html>
