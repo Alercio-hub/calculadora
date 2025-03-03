@@ -1,0 +1,2232 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English Quest</title>
+    <style>
+        :root {
+            --primary-color: #5D5CDE;
+            --secondary-color: #ff7e5f;
+            --accent-color: #38b2ac;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --success-color: #48bb78;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #6968e8;
+                --secondary-color: #ff9b7f;
+                --accent-color: #4fd1ca;
+                --background-color: #181818;
+                --text-color: #e1e1e1;
+                --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+                --success-color: #68d798;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M10,20 L20,10 L80,70 L90,60 L80,90 L50,80 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 300px;
+            z-index: 1;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            nav {
+                background-color: #232323;
+            }
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .intro-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .intro-section h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .intro-section p {
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .progress-tracker {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .progress-tracker {
+                background-color: #232323;
+            }
+        }
+        
+        .progress-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .progress-bar {
+                background-color: #444;
+            }
+        }
+        
+        .progress-value {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .stat-card {
+                background-color: #2a2a2a;
+            }
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .module-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .module-card {
+                background-color: #232323;
+            }
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module-card.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .module-card.locked::after {
+            content: "🔒";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #666;
+        }
+        
+        .module-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .module-body {
+            padding: 1.5rem;
+        }
+        
+        .module-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        .module-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-badge.not-started {
+            background-color: #eee;
+            color: #666;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .status-badge.not-started {
+                background-color: #444;
+                color: #aaa;
+            }
+        }
+        
+        .status-badge.in-progress {
+            background-color: #ffedd5;
+            color: #c2410c;
+        }
+        
+        .status-badge.completed {
+            background-color: #ecfdf5;
+            color: var(--success-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3b5a84;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        .module-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .module-dialog.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dialog-content {
+            background-color: white;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .dialog-content {
+                background-color: #232323;
+            }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .module-lesson {
+            margin-bottom: 2.5rem;
+        }
+        
+        .module-lesson h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .lesson-content {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .lesson-content {
+                background-color: #2a2a2a;
+            }
+        }
+        
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .resource-card {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .resource-card {
+                background-color: #2a2a2a;
+            }
+        }
+        
+        .resource-icon {
+            font-size: 1.5rem;
+        }
+        
+        .exercise-container {
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .exercise-container {
+                border-color: #444;
+            }
+        }
+        
+        .quiz-container {
+            margin-top: 1.5rem;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        
+        .quiz-option {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .quiz-option {
+                border-color: #555;
+            }
+        }
+        
+        .quiz-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .quiz-option:hover {
+                background-color: #333;
+            }
+        }
+        
+        .quiz-option.selected {
+            background-color: #e6f2ff;
+            border-color: var(--primary-color);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .quiz-option.selected {
+                background-color: #384b63;
+            }
+        }
+        
+        .quiz-option.correct {
+            background-color: #ecfdf5;
+            border-color: var(--success-color);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .quiz-option.correct {
+                background-color: #1c3b2e;
+            }
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .quiz-option.incorrect {
+                background-color: #3b1d1d;
+            }
+        }
+        
+        .pronunciation-exercise {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .pronunciation-exercise {
+                background-color: #1e2a39;
+            }
+        }
+        
+        .word-to-pronounce {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pronunciation-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .conversation-practice {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .conversation-practice {
+                background-color: #1e2a39;
+            }
+        }
+        
+        .conversation-bubble {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: var(--card-shadow);
+            max-width: 80%;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .conversation-bubble {
+                background-color: #2a2a2a;
+            }
+        }
+        
+        .conversation-bubble.assistant {
+            margin-right: auto;
+            border-top-left-radius: 0;
+            background-color: #e6f2ff;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .conversation-bubble.assistant {
+                background-color: #2a3a4a;
+            }
+        }
+        
+        .conversation-bubble.user {
+            margin-left: auto;
+            border-top-right-radius: 0;
+        }
+        
+        .conversation-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .conversation-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            color: #333;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .conversation-input input {
+                background-color: #333;
+                color: #e1e1e1;
+                border-color: #555;
+            }
+        }
+        
+        .memory-game {
+            margin-top: 1.5rem;
+        }
+        
+        .memory-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1/1;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            position: relative;
+        }
+        
+        .memory-card .front,
+        .memory-card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+        
+        .memory-card .front {
+            background-color: var(--primary-color);
+            transform: rotateY(0deg);
+        }
+        
+        .memory-card .back {
+            background-color: white;
+            color: var(--text-color);
+            transform: rotateY(180deg);
+            border: 2px solid var(--primary-color);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .memory-card .back {
+                background-color: #2a2a2a;
+            }
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        
+        .summary-section {
+            margin-top: 2rem;
+            background-color: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .summary-section {
+                background-color: #1e2a39;
+            }
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Custom notification component to replace alerts */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            transform: translateY(-100px);
+            opacity: 0;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .nav-links {
+                    background-color: #232323;
+                }
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .pronunciation-btns {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <h1>The English Quest</h1>
+        <p>Uma jornada interativa para dominar o inglês de forma divertida e eficaz</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">English Quest</div>
+            <div class="nav-links">
+                <a href="#modules">Módulos</a>
+                <a href="#resources">Recursos</a>
+                <a href="#community">Comunidade</a>
+                <a href="#about">Sobre</a>
+            </div>
+            <div class="hamburger">☰</div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="intro-section">
+            <h2>Aprenda inglês de forma eficaz e divertida</h2>
+            <p>The English Quest combina métodos comprovados de aprendizagem com elementos de gamificação para tornar o processo de aprender inglês envolvente e eficaz. Complete missões, ganhe pontos, desbloqueie conquistas e acompanhe seu progresso enquanto desenvolve habilidades práticas em inglês.</p>
+            <button class="btn btn-primary" id="start-journey">Começar Minha Jornada</button>
+        </section>
+        
+        <section class="progress-tracker">
+            <div class="progress-heading">
+                <h2>Seu Progresso</h2>
+                <span id="progress-percentage">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-value" id="progress-bar-value"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="words-learned">0</div>
+                    <div class="stat-label">Palavras Aprendidas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="lessons-completed">0</div>
+                    <div class="stat-label">Lições Concluídas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="streak-days">0</div>
+                    <div class="stat-label">Dias Consecutivos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="xp-points">0</div>
+                    <div class="stat-label">Pontos XP</div>
+                </div>
+            </div>
+        </section>
+        
+        <h2 id="modules">Módulos de Aprendizado</h2>
+        <div class="modules-container">
+            <!-- Módulo 1 -->
+            <div class="module-card" data-module="1">
+                <div class="module-header">
+                    <h3>Módulo 1: Primeiros Passos</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Inicie sua jornada com os fundamentos do inglês. Aprenda saudações, apresentações e frases básicas do dia a dia.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>5 lições</span>
+                        <span class="status-badge not-started">Não iniciado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline">Iniciar Módulo</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 2 -->
+            <div class="module-card" data-module="2">
+                <div class="module-header">
+                    <h3>Módulo 2: Conversação Básica</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Desenvolva suas habilidades de conversação com diálogos do dia a dia. Aprenda a falar sobre hobbies, preferências e rotinas.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>7 lições</span>
+                        <span class="status-badge not-started">Não iniciado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline">Iniciar Módulo</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 3 -->
+            <div class="module-card locked" data-module="3">
+                <div class="module-header">
+                    <h3>Módulo 3: Gramática Essencial</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Domine os tempos verbais fundamentais e estruturas gramaticais que tornarão sua comunicação mais precisa e fluente.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>8 lições</span>
+                        <span class="status-badge not-started">Bloqueado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline" disabled="">Bloqueado</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 4 -->
+            <div class="module-card locked" data-module="4">
+                <div class="module-header">
+                    <h3>Módulo 4: Vocabulário Expandido</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Expanda seu vocabulário com palavras e expressões sobre trabalho, viagens, tecnologia e outros temas relevantes.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>6 lições</span>
+                        <span class="status-badge not-started">Bloqueado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline" disabled="">Bloqueado</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 5 -->
+            <div class="module-card locked" data-module="5">
+                <div class="module-header">
+                    <h3>Módulo 5: Inglês para Situações Reais</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Aprenda inglês para situações práticas como fazer compras, pedir direções, participar de entrevistas e socializar.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>9 lições</span>
+                        <span class="status-badge not-started">Bloqueado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline" disabled="">Bloqueado</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 6 -->
+            <div class="module-card locked" data-module="6">
+                <div class="module-header">
+                    <h3>Módulo 6: Inglês Avançado</h3>
+                </div>
+                <div class="module-body">
+                    <div class="module-description">
+                        <p>Refine suas habilidades com expressões idiomáticas, nuances culturais e estruturas gramaticais avançadas.</p>
+                    </div>
+                    <div class="module-stats">
+                        <span>8 lições</span>
+                        <span class="status-badge not-started">Bloqueado</span>
+                    </div>
+                    <div class="center">
+                        <button class="btn btn-outline" disabled="">Bloqueado</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 id="resources" style="margin-top: 3rem;">Recursos Complementares</h2>
+        <div class="resource-list">
+            <a href="https://learnenglish.britishcouncil.org/" target="_blank" class="resource-card">
+                <div class="resource-icon">🌐</div>
+                <h3>British Council</h3>
+                <p>Recursos oficiais para aprendizado de inglês com exercícios gratuitos</p>
+            </a>
+            <a href="https://www.bbc.co.uk/learningenglish/" target="_blank" class="resource-card">
+                <div class="resource-icon">📻</div>
+                <h3>BBC Learning English</h3>
+                <p>Vídeos, áudios e atividades para todos os níveis</p>
+            </a>
+            <a href="https://www.youtube.com/c/EnglishClass101" target="_blank" class="resource-card">
+                <div class="resource-icon">🎥</div>
+                <h3>EnglishClass101</h3>
+                <p>Canal com milhares de vídeos didáticos</p>
+            </a>
+            <a href="https://www.duolingo.com/" target="_blank" class="resource-card">
+                <div class="resource-icon">🦉</div>
+                <h3>Duolingo</h3>
+                <p>Aplicativo gamificado com exercícios curtos e divertidos</p>
+            </a>
+        </div>
+    </main>
+    
+    <!-- Dialog para Módulos -->
+    <div class="module-dialog" id="module-dialog">
+        <div class="dialog-content">
+            <button class="close-btn" id="close-dialog">×</button>
+            <div id="module-dialog-content">
+                <!-- Conteúdo dinâmico do módulo será inserido aqui -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Componente de notificação personalizado para substituir alerts -->
+    <div class="notification" id="notification"></div>
+    
+    <footer>
+        <h3>The English Quest</h3>
+        <p>Aprenda inglês de forma interativa e eficaz</p>
+        <div class="footer-links">
+            <a href="#">Sobre Nós</a>
+            <a href="#">Termos de Uso</a>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Contato</a>
+        </div>
+        <p>© 2025 The English Quest. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Dados do usuário
+        let userData = {
+            progress: 0,
+            wordsLearned: 0,
+            lessonsCompleted: 0,
+            streakDays: 0,
+            xpPoints: 0,
+            modules: {
+                1: { status: 'not-started', progress: 0, lessons: [] },
+                2: { status: 'locked', progress: 0, lessons: [] },
+                3: { status: 'locked', progress: 0, lessons: [] },
+                4: { status: 'locked', progress: 0, lessons: [] },
+                5: { status: 'locked', progress: 0, lessons: [] },
+                6: { status: 'locked', progress: 0, lessons: [] }
+            }
+        };
+        
+        // Conteúdo dos módulos
+        const modulesData = {
+            1: {
+                title: "Módulo 1: Primeiros Passos",
+                description: "Bem-vindo ao seu primeiro módulo! Aqui você aprenderá os fundamentos do inglês, incluindo saudações, apresentações e frases básicas do dia a dia.",
+                lessons: [
+                    {
+                        title: "Lição 1: Saudações e Apresentações",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Saudações Básicas em Inglês</h4>
+                                <p>As saudações são a porta de entrada para qualquer conversa. Vamos aprender as formas mais comuns de cumprimentar alguém em inglês:</p>
+                                <ul>
+                                    <li><strong>Hello</strong> - Olá (formal/informal)</li>
+                                    <li><strong>Hi</strong> - Oi (informal)</li>
+                                    <li><strong>Good morning</strong> - Bom dia (até meio-dia)</li>
+                                    <li><strong>Good afternoon</strong> - Boa tarde (depois do meio-dia até ±18h)</li>
+                                    <li><strong>Good evening</strong> - Boa noite (depois das 18h)</li>
+                                    <li><strong>Good night</strong> - Boa noite (ao se despedir para dormir)</li>
+                                </ul>
+                                
+                                <h4>Como se Apresentar</h4>
+                                <p>Depois de cumprimentar alguém, geralmente nos apresentamos. Aqui estão algumas frases úteis:</p>
+                                <ul>
+                                    <li><strong>My name is...</strong> - Meu nome é...</li>
+                                    <li><strong>I'm...</strong> - Eu sou... (versão contraída)</li>
+                                    <li><strong>Nice to meet you</strong> - Prazer em conhecê-lo(a)</li>
+                                    <li><strong>Pleased to meet you</strong> - Prazer em conhecê-lo(a) (mais formal)</li>
+                                </ul>
+                                
+                               <div class="pronunciation-exercise">
+    <h4>Exercício de Pronúncia</h4>
+    <p>Clique nos botões abaixo para ouvir a pronúncia correta e pratique repetindo as palavras:</p>
+    
+    <div class="word-to-pronounce" id="word-display">Hello</div>
+    
+    <div class="pronunciation-btns">
+        <button class="btn btn-primary" onclick="playAudio(document.getElementById('word-display').textContent)">🔊 Ouvir Pronúncia</button>
+        <button class="btn btn-outline" onclick="nextWord()">➡ Próxima Palavra</button>
+    </div>
+</div>
+
+                            </div>
+                            
+                            <h4>Recursos Complementares</h4>
+                            <div class="resource-list">
+                                <a href="https://www.youtube.com/watch?v=jT0Z0ykK_6s" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎥</div>
+                                    <h3>Vídeo: Greetings in English</h3>
+                                    <p>Aprenda pronúncia e contextos de uso</p>
+                                </a>
+                                <a href="https://learnenglish.britishcouncil.org/skills/speaking/a1-speaking/introductions" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🔊</div>
+                                    <h3>Exercícios de Fala</h3>
+                                    <p>Pratique introduções com o British Council</p>
+                                </a>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Exercício Prático</h4>
+                                <p>Complete os diálogos com as frases apropriadas:</p>
+                                
+                                <div class="quiz-container">
+                                    <div class="quiz-question">
+                                        <p>Diálogo 1: São 10h da manhã e você encontra seu professor.</p>
+                                        <p>Você: "___________________, Professor Smith."</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">Good morning</div>
+                                            <div class="quiz-option">Good night</div>
+                                            <div class="quiz-option">Good evening</div>
+                                            <div class="quiz-option">Good afternoon</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>Diálogo 2: Você está conhecendo alguém pela primeira vez.</p>
+                                        <p>Pessoa: "Hi, I'm Sarah."</p>
+                                        <p>Você: "Hello, ___________________ John. ___________________ ."</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">I'm... Nice to meet you</div>
+                                            <div class="quiz-option">My is... Good night</div>
+                                            <div class="quiz-option">I is... See you later</div>
+                                            <div class="quiz-option">My be... How do you do</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           <div class="conversation-practice">
+    <h4>Prática de Conversação</h4>
+    <p>Vamos praticar um diálogo simples de apresentação:</p>
+    
+    <!-- Mensagem inicial do chatbot -->
+    <div class="conversation-bubble assistant" id="assistant-message">
+      <p><strong>Alex:</strong> Hello! My name is Alex. What's your name?</p>
+    </div>
+    
+    <!-- Área de entrada do usuário -->
+    <div class="conversation-input">
+      <input type="text" id="conversation-response" placeholder="Digite sua resposta...">
+      <button class="btn btn-primary" id="send-response">Enviar</button>
+    </div>
+    
+    <!-- Container para feedback e continuidade da conversa -->
+    <div id="conversation-feedback"></div>
+  </div>
+
+                        `
+                    },
+                    {
+                        title: "Lição 2: Números e Horas",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Os Números em Inglês (1-100)</h4>
+                                <p>Saber contar em inglês é uma habilidade fundamental. Vamos aprender os números de 1 a 100:</p>
+                                
+                                <h5>Números de 1 a 20:</h5>
+                                <p>1 - one, 2 - two, 3 - three, 4 - four, 5 - five, 6 - six, 7 - seven, 8 - eight, 9 - nine, 10 - ten</p>
+                                <p>11 - eleven, 12 - twelve, 13 - thirteen, 14 - fourteen, 15 - fifteen, 16 - sixteen, 17 - seventeen, 18 - eighteen, 19 - nineteen, 20 - twenty</p>
+                                
+                                <h5>Dezenas:</h5>
+                                <p>10 - ten, 20 - twenty, 30 - thirty, 40 - forty, 50 - fifty, 60 - sixty, 70 - seventy, 80 - eighty, 90 - ninety</p>
+                                
+                                <p>Para formar os números entre as dezenas, basta combinar a dezena com o número: 21 - twenty-one, 35 - thirty-five, etc.</p>
+                                
+                                <h4>Perguntando e Dizendo as Horas</h4>
+                                <p>Saber informar e perguntar as horas é essencial para o dia a dia. Vamos aprender algumas frases úteis:</p>
+                                
+                                <h5>Perguntas sobre horas:</h5>
+                                <ul>
+                                    <li><strong>What time is it?</strong> - Que horas são?</li>
+                                    <li><strong>Do you have the time?</strong> - Você tem (sabe) as horas?</li>
+                                    <li><strong>Could you tell me the time, please?</strong> - Poderia me dizer as horas, por favor?</li>
+                                </ul>
+                                
+                                <h5>Respostas sobre horas:</h5>
+                                <ul>
+                                    <li><strong>It's one o'clock.</strong> - É uma hora.</li>
+                                    <li><strong>It's half past two.</strong> - São duas e meia. (2:30)</li>
+                                    <li><strong>It's quarter to four.</strong> - São quinze para as quatro. (3:45)</li>
+                                    <li><strong>It's quarter past six.</strong> - São seis e quinze. (6:15)</li>
+                                    <li><strong>It's ten past seven.</strong> - São sete e dez. (7:10)</li>
+                                    <li><strong>It's twenty to nine.</strong> - São vinte para as nove. (8:40)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="memory-game">
+                                <h4>Jogo da Memória: Números</h4>
+                                <p>Encontre os pares de números com suas palavras em inglês:</p>
+                                
+                                <div class="memory-cards" id="number-memory-game">
+                                    <!-- Cards serão inseridos via JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <h4>Recursos Complementares</h4>
+                            <div class="resource-list">
+                                <a href="https://www.youtube.com/watch?v=e0dJWfQHF8Y" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎥</div>
+                                    <h3>Vídeo: Números em Inglês</h3>
+                                    <p>Aprenda a pronúncia correta dos números</p>
+                                </a>
+                                <a href="https://www.englisch-hilfen.de/en/exercises/time/uhrzeit.htm" target="_blank" class="resource-card">
+                                    <div class="resource-icon">⏰</div>
+                                    <h3>Exercícios de Horas</h3>
+                                    <p>Pratique como dizer as horas em inglês</p>
+                                </a>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Exercício Prático</h4>
+                                <p>Veja o relógio e escolha a opção correta:</p>
+                                
+                                <div class="quiz-container">
+                                    <div class="quiz-question">
+                                        <p>Que horas são? ⏰ 3:15</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">It's quarter past three.</div>
+                                            <div class="quiz-option">It's quarter to three.</div>
+                                            <div class="quiz-option">It's three and quarter.</div>
+                                            <div class="quiz-option">It's fifteen past three.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>Que horas são? ⏰ 7:45</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option">It's forty-five past seven.</div>
+                                            <div class="quiz-option" data-correct="true">It's quarter to eight.</div>
+                                            <div class="quiz-option">It's quarter past seven.</div>
+                                            <div class="quiz-option">It's seven and forty-five.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Lição 3: Vocabulário Básico",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Vocabulário Essencial do Dia a Dia</h4>
+                                <p>Nesta lição, vamos aprender palavras e frases essenciais para situações cotidianas.</p>
+                                
+                                <h5>Objetos Comuns:</h5>
+                                <ul>
+                                    <li><strong>Book</strong> - Livro</li>
+                                    <li><strong>Phone</strong> - Telefone</li>
+                                    <li><strong>Key</strong> - Chave</li>
+                                    <li><strong>Computer</strong> - Computador</li>
+                                    <li><strong>Pen</strong> - Caneta</li>
+                                    <li><strong>Bottle</strong> - Garrafa</li>
+                                    <li><strong>Bag</strong> - Bolsa/Mochila</li>
+                                    <li><strong>Chair</strong> - Cadeira</li>
+                                    <li><strong>Table</strong> - Mesa</li>
+                                    <li><strong>Door</strong> - Porta</li>
+                                    <li><strong>Window</strong> - Janela</li>
+                                </ul>
+                                
+                                <h5>Cores Básicas:</h5>
+                                <ul>
+                                    <li><strong>Red</strong> - Vermelho</li>
+                                    <li><strong>Blue</strong> - Azul</li>
+                                    <li><strong>Yellow</strong> - Amarelo</li>
+                                    <li><strong>Green</strong> - Verde</li>
+                                    <li><strong>Black</strong> - Preto</li>
+                                    <li><strong>White</strong> - Branco</li>
+                                    <li><strong>Purple</strong> - Roxo</li>
+                                    <li><strong>Pink</strong> - Rosa</li>
+                                    <li><strong>Orange</strong> - Laranja</li>
+                                    <li><strong>Brown</strong> - Marrom</li>
+                                    <li><strong>Gray</strong> - Cinza</li>
+                                </ul>
+                                
+                                <h5>Frases Úteis:</h5>
+                                <ul>
+                                    <li><strong>Excuse me</strong> - Com licença</li>
+                                    <li><strong>I'm sorry</strong> - Desculpe</li>
+                                    <li><strong>Thank you / Thanks</strong> - Obrigado(a)</li>
+                                    <li><strong>You're welcome</strong> - De nada</li>
+                                    <li><strong>Please</strong> - Por favor</li>
+                                    <li><strong>Yes / No</strong> - Sim / Não</li>
+                                    <li><strong>I don't understand</strong> - Eu não entendo</li>
+                                    <li><strong>Can you repeat that?</strong> - Pode repetir?</li>
+                                    <li><strong>How much is this?</strong> - Quanto custa isto?</li>
+                                    <li><strong>Where is the bathroom?</strong> - Onde fica o banheiro?</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Exercício: Combine as Palavras</h4>
+                                <p>Arraste as palavras para as traduções corretas:</p>
+                                
+                                <!-- Aqui seria implementado um mini-jogo de arrastar e soltar -->
+                                <div class="quiz-container">
+                                    <div class="quiz-question">
+                                        <p>Complete a frase: "Can you pass me the ___ pen, please?"</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">blue</div>
+                                            <div class="quiz-option">blew</div>
+                                            <div class="quiz-option">blow</div>
+                                            <div class="quiz-option">blues</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>Qual seria a resposta apropriada para "Thank you for your help"?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option">Yes, please.</div>
+                                            <div class="quiz-option">I don't know.</div>
+                                            <div class="quiz-option" data-correct="true">You're welcome.</div>
+                                            <div class="quiz-option">Good night.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pronunciation-exercise">
+                                <h4>Exercício de Pronúncia: Frases Essenciais</h4>
+                                <p>Clique no botão para ouvir e repita a frase:</p>
+                                <div class="word-to-pronounce" id="phrase-display">Excuse me, can you help me, please?</div>
+                                <div class="pronunciation-btns">
+                                    <button class="btn btn-primary" onclick="playAudio('phrase1')">Ouvir Pronúncia</button>
+                                    <button class="btn btn-outline" onclick="nextPhrase()">Próxima Frase</button>
+                                </div>
+                            </div>
+                            
+                            <h4>Recursos Complementares</h4>
+                            <div class="resource-list">
+                                <a href="https://www.youtube.com/watch?v=XrsyMqRQWlM" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎥</div>
+                                    <h3>Vídeo: 100 Frases Essenciais</h3>
+                                    <p>Aprenda as frases mais usadas no dia a dia</p>
+                                </a>
+                                <a href="https://quizlet.com/515331673/basic-english-vocabulary-flash-cards/" target="_blank" class="resource-card">
+                                    <div class="resource-icon">📝</div>
+                                    <h3>Flashcards de Vocabulário</h3>
+                                    <p>Pratique com cartões interativos</p>
+                                </a>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Lição 4: Perguntas Básicas",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Perguntas e Respostas Fundamentais</h4>
+                                <p>Saber fazer perguntas é essencial para uma comunicação eficaz em qualquer idioma. Nesta lição, vamos aprender as perguntas mais comuns em inglês e como respondê-las.</p>
+                                
+                                <h5>Palavras Interrogativas (Question Words):</h5>
+                                <ul>
+                                    <li><strong>What</strong> - O que</li>
+                                    <li><strong>Where</strong> - Onde</li>
+                                    <li><strong>When</strong> - Quando</li>
+                                    <li><strong>Who</strong> - Quem</li>
+                                    <li><strong>Why</strong> - Por que</li>
+                                    <li><strong>How</strong> - Como</li>
+                                    <li><strong>Which</strong> - Qual</li>
+                                    <li><strong>Whose</strong> - De quem</li>
+                                </ul>
+                                
+                                <h5>Perguntas Pessoais Comuns:</h5>
+                                <ul>
+                                    <li><strong>What's your name?</strong> - Qual é o seu nome?</li>
+                                    <li><strong>Where are you from?</strong> - De onde você é?</li>
+                                    <li><strong>How old are you?</strong> - Quantos anos você tem?</li>
+                                    <li><strong>What do you do?</strong> - O que você faz? (profissão)</li>
+                                    <li><strong>Do you speak English?</strong> - Você fala inglês?</li>
+                                    <li><strong>How are you?</strong> - Como você está?</li>
+                                </ul>
+                                
+                                <h5>Respostas Típicas:</h5>
+                                <ul>
+                                    <li><strong>My name is...</strong> - Meu nome é...</li>
+                                    <li><strong>I'm from...</strong> - Eu sou de...</li>
+                                    <li><strong>I'm ... years old.</strong> - Eu tenho ... anos.</li>
+                                    <li><strong>I'm a/an...</strong> - Eu sou um(a)... (profissão)</li>
+                                    <li><strong>Yes, I do. / No, I don't.</strong> - Sim, eu falo. / Não, eu não falo.</li>
+                                    <li><strong>I'm fine, thank you.</strong> - Estou bem, obrigado(a).</li>
+                                </ul>
+                                
+                                <h5>Estrutura Básica de Perguntas:</h5>
+                                <p>Em inglês, existem dois tipos principais de perguntas:</p>
+                                
+                                <h6>1. Perguntas com Palavras Interrogativas:</h6>
+                                <p><strong>Palavra Interrogativa + Verbo Auxiliar + Sujeito + Resto da Frase</strong></p>
+                                <p>Exemplo: <em>Where do you live?</em> (Onde você mora?)</p>
+                                
+                                <h6>2. Perguntas Sim/Não:</h6>
+                                <p><strong>Verbo Auxiliar + Sujeito + Resto da Frase</strong></p>
+                                <p>Exemplo: <em>Do you like coffee?</em> (Você gosta de café?)</p>
+                            </div>
+                            
+                            <div class="conversation-practice">
+                                <h4>Prática de ção</h4>
+                                <p>Vamos praticar perguntas e respostas em um diálogo:</p>
+                                
+                                <div class="conversation-bubble assistant">
+                                    <p><strong>Interviewer:</strong> Hello! I'd like to ask you some questions. What's your name?</p>
+                                </div>
+                                
+                                <div class="conversation-input">
+                                    <input type="text" id="question-response-1" placeholder="Digite sua resposta...">
+                                    <button class="btn btn-primary" id="send-question-1">Responder</button>
+                                </div>
+                                
+                                <div id="question-feedback-1"></div>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Exercício: Complete as Perguntas</h4>
+                                <p>Escolha a palavra interrogativa correta para cada pergunta:</p>
+                                
+                                <div class="quiz-container">
+                                    <div class="quiz-question">
+                                        <p>________ is your favorite color?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">What</div>
+                                            <div class="quiz-option">Where</div>
+                                            <div class="quiz-option">When</div>
+                                            <div class="quiz-option">Who</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>________ are you going on vacation?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option">What</div>
+                                            <div class="quiz-option" data-correct="true">When</div>
+                                            <div class="quiz-option">Where</div>
+                                            <div class="quiz-option">Why</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>________ old is your brother?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option">What</div>
+                                            <div class="quiz-option" data-correct="true">How</div>
+                                            <div class="quiz-option">When</div>
+                                            <div class="quiz-option">Why</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4>Recursos Complementares</h4>
+                            <div class="resource-list">
+                                <a href="https://www.youtube.com/watch?v=KGYXjw4OOHM" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎥</div>
+                                    <h3>Vídeo: Perguntas em Inglês</h3>
+                                    <p>Aprenda a estrutura de perguntas em inglês</p>
+                                </a>
+                                <a href="https://www.englishclub.com/grammar/wh-questions.htm" target="_blank" class="resource-card">
+                                    <div class="resource-icon">📊</div>
+                                    <h3>Guia Completo: Question Words</h3>
+                                    <p>Explicações detalhadas e exercícios</p>
+                                </a>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Lição 5: Projeto Prático",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Projeto Final do Módulo 1</h4>
+                                <p>Parabéns por chegar à última lição do Módulo 1! Agora é hora de colocar em prática tudo o que você aprendeu em um projeto integrador.</p>
+                                
+                                <h5>Projeto: Apresentação Pessoal</h5>
+                                <p>Neste projeto, você vai criar uma apresentação pessoal em inglês usando o vocabulário e estruturas que aprendeu até agora.</p>
+                                
+                                <h5>Instruções:</h5>
+                                <ol>
+                                    <li>Escreva uma apresentação sobre você em inglês (10-15 linhas)</li>
+                                    <li>Inclua: seu nome, idade, de onde você é, o que faz, hobbies, e outras informações que desejar compartilhar</li>
+                                    <li>Use pelo menos 5 perguntas e respostas no formato de entrevista</li>
+                                    <li>Inclua vocabulário das lições anteriores</li>
+                                </ol>
+                                
+                                <h5>Exemplo:</h5>
+                                <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                    <p><strong>Hello! My name is Carlos. I'm 27 years old and I'm from Brazil. I live in São Paulo with my family. I'm a software engineer and I work for a technology company.</strong></p>
+                                    
+                                    <p><strong>Q: What languages do you speak?</strong><br>
+                                    A: I speak Portuguese, English, and a little bit of Spanish.</p>
+                                    
+                                    <p><strong>Q: What are your hobbies?</strong><br>
+                                    A: I like playing soccer, reading books, and watching movies. My favorite color is blue.</p>
+                                    
+                                    <p><strong>Q: What time do you usually wake up?</strong><br>
+                                    A: I usually wake up at 6:30 in the morning.</p>
+                                    
+                                    <p><strong>Q: Do you have any pets?</strong><br>
+                                    A: Yes, I have a black and white cat. His name is Felix.</p>
+                                    
+                                    <p><strong>Q: What's your favorite food?</strong><br>
+                                    A: My favorite food is pizza. I also like pasta and salads.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Escreva sua Apresentação Pessoal</h4>
+                                <p>Use o campo abaixo para escrever sua apresentação:</p>
+                                
+                                <textarea id="personal-presentation" rows="10" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 16px;" placeholder="Escreva sua apresentação pessoal aqui..."></textarea>
+                                
+                                <button class="btn btn-primary" id="submit-presentation">Enviar Apresentação</button>
+                                
+                                <div id="presentation-feedback" style="margin-top: 15px;"></div>
+                            </div>
+                            
+                            <div class="summary-section">
+                                <h4>Resumo do Módulo 1</h4>
+                                <p>Neste módulo, você aprendeu:</p>
+                                <ul>
+                                    <li>Saudações e apresentações básicas em inglês</li>
+                                    <li>Números e como dizer as horas</li>
+                                    <li>Vocabulário essencial do dia a dia</li>
+                                    <li>Como fazer perguntas básicas e respondê-las</li>
+                                    <li>Como se apresentar em inglês</li>
+                                </ul>
+                                
+                                <p>Estes fundamentos são a base para você continuar desenvolvendo suas habilidades em inglês. No próximo módulo, vamos explorar a conversação básica em diferentes contextos.</p>
+                                
+                                <div style="text-align: center; margin-top: 20px;">
+                                    <button class="btn btn-primary" id="complete-module">Concluir Módulo</button>
+                                </div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            2: {
+                title: "Módulo 2: Conversação Básica",
+                description: "Neste módulo, você vai desenvolver suas habilidades de conversação com diálogos do dia a dia. Aprenda a falar sobre hobbies, preferências e rotinas diárias em inglês.",
+                lessons: [
+                    {
+                        title: "Lição 1: Falando sobre Hobbies",
+                        content: `
+                            <div class="lesson-content">
+                                <h4>Vocabulário de Hobbies e Interesses</h4>
+                                <p>Nesta lição, vamos aprender a falar sobre nossas atividades favoritas e passatempos em inglês.</p>
+                                
+                                <h5>Hobbies Comuns:</h5>
+                                <ul>
+                                    <li><strong>Reading books</strong> - Ler livros</li>
+                                    <li><strong>Watching movies/TV shows</strong> - Assistir filmes/séries</li>
+                                    <li><strong>Playing video games</strong> - Jogar videogames</li>
+                                    <li><strong>Listening to music</strong> - Ouvir música</li>
+                                    <li><strong>Dancing</strong> - Dançar</li>
+                                    <li><strong>Singing</strong> - Cantar</li>
+                                    <li><strong>Cooking</strong> - Cozinhar</li>
+                                    <li><strong>Baking</strong> - Assar/fazer bolos</li>
+                                    <li><strong>Gardening</strong> - Jardinagem</li>
+                                    <li><strong>Drawing/Painting</strong> - Desenhar/Pintar</li>
+                                    <li><strong>Photography</strong> - Fotografia</li>
+                                    <li><strong>Traveling</strong> - Viajar</li>
+                                    <li><strong>Hiking</strong> - Fazer trilhas</li>
+                                </ul>
+                                
+                                <h5>Esportes:</h5>
+                                <ul>
+                                    <li><strong>Playing soccer/football</strong> - Jogar futebol</li>
+                                    <li><strong>Swimming</strong> - Nadar</li>
+                                    <li><strong>Running</strong> - Correr</li>
+                                    <li><strong>Cycling</strong> - Andar de bicicleta</li>
+                                    <li><strong>Playing basketball</strong> - Jogar basquete</li>
+                                    <li><strong>Playing volleyball</strong> - Jogar vôlei</li>
+                                    <li><strong>Tennis</strong> - Tênis</li>
+                                    <li><strong>Yoga</strong> - Ioga</li>
+                                    <li><strong>Gym/Working out</strong> - Academia/Malhar</li>
+                                </ul>
+                                
+                                <h5>Frases Úteis para Falar sobre Hobbies:</h5>
+                                <ul>
+                                    <li><strong>I like/love...</strong> - Eu gosto/adoro...</li>
+                                    <li><strong>I enjoy...</strong> - Eu gosto de...</li>
+                                    <li><strong>My favorite hobby is...</strong> - Meu hobby favorito é...</li>
+                                    <li><strong>In my free time, I...</strong> - No meu tempo livre, eu...</li>
+                                    <li><strong>I'm interested in...</strong> - Eu tenho interesse em...</li>
+                                    <li><strong>I'm good at...</strong> - Eu sou bom/boa em...</li>
+                                    <li><strong>I'm learning to...</strong> - Estou aprendendo a...</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="conversation-practice">
+                                <h4>Prática de Conversação: Hobbies</h4>
+                                <p>Vamos praticar um diálogo sobre hobbies:</p>
+                                
+                                <div class="conversation-bubble assistant">
+                                    <p><strong>Sarah:</strong> Hi there! What do you like to do in your free time?</p>
+                                </div>
+                                
+                                <div class="conversation-input">
+                                    <input type="text" id="hobby-response-1" placeholder="Digite sua resposta...">
+                                    <button class="btn btn-primary" id="send-hobby-1">Responder</button>
+                                </div>
+                                
+                                <div id="hobby-feedback-1"></div>
+                            </div>
+                            
+                            <div class="exercise-container">
+                                <h4>Exercício: Combine os Hobbies</h4>
+                                <p>Ligue cada hobby em inglês à sua tradução correta:</p>
+                                
+                                <!-- Aqui seria implementado um mini-jogo de arrastar e soltar -->
+                                <div class="quiz-container">
+                                    <div class="quiz-question">
+                                        <p>Como você diria em inglês: "Eu gosto de assistir filmes no meu tempo livre"?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" data-correct="true">I enjoy watching movies in my free time.</div>
+                                            <div class="quiz-option">I see movies in my free time.</div>
+                                            <div class="quiz-option">I look movies in my free time.</div>
+                                            <div class="quiz-option">I enjoying watch movies in my free time.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <p>Qual é a tradução correta para "jardinagem"?</p>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option">Garden</div>
+                                            <div class="quiz-option" data-correct="true">Gardening</div>
+                                            <div class="quiz-option">Gardener</div>
+                                            <div class="quiz-option">To garden</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4>Recursos Complementares</h4>
+                            <div class="resource-list">
+                                <a href="https://www.youtube.com/watch?v=hoUQnS4KC0I" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎥</div>
+                                    <h3>Vídeo: Falando sobre Hobbies</h3>
+                                    <p>Vocabulário e expressões úteis</p>
+                                </a>
+                                <a href="https://learnenglish.britishcouncil.org/vocabulary/beginner-to-pre-intermediate/free-time-activities" target="_blank" class="resource-card">
+                                    <div class="resource-icon">🎮</div>
+                                    <h3>Atividades Interativas</h3>
+                                    <p>Pratique vocabulário de atividades de lazer</p>
+                                </a>
+                            </div>
+                        `
+                    },
+                    // Adicione mais lições conforme necessário para o Módulo 2
+                ]
+            }
+            // Adicione mais módulos conforme necessário
+        };
+        
+        // Elementos DOM
+        const progressBar = document.getElementById('progress-bar-value');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const wordsLearned = document.getElementById('words-learned');
+        const lessonsCompleted = document.getElementById('lessons-completed');
+        const streakDays = document.getElementById('streak-days');
+        const xpPoints = document.getElementById('xp-points');
+        const moduleCards = document.querySelectorAll('.module-card');
+        const moduleDialog = document.getElementById('module-dialog');
+        const closeDialog = document.getElementById('close-dialog');
+        const moduleDialogContent = document.getElementById('module-dialog-content');
+        const startJourneyBtn = document.getElementById('start-journey');
+        const notificationElement = document.getElementById('notification');
+        
+        // Versão modificada que usa variáveis de sessão em vez de localStorage
+        // já que localStorage não está disponível no iframe do Canvas
+        function loadUserData() {
+            // Nesta versão, os dados são mantidos apenas na memória durante a sessão atual
+            // Os dados são inicializados no objeto userData definido acima
+            updateProgress();
+            updateModuleStatus();
+        }
+        
+        // Salvar dados do usuário (apenas na memória)
+        function saveUserData() {
+            // Nesta versão, os dados já estão salvos no objeto userData em memória
+            // Não usamos localStorage, pois não está disponível no iframe do Canvas
+            updateProgress();
+        }
+        
+        // Inicializar progresso
+        function updateProgress() {
+            progressBar.style.width = `${userData.progress}%`;
+            progressPercentage.textContent = `${userData.progress}%`;
+            wordsLearned.textContent = userData.wordsLearned;
+            lessonsCompleted.textContent = userData.lessonsCompleted;
+            streakDays.textContent = userData.streakDays;
+            xpPoints.textContent = userData.xpPoints;
+        }
+        
+        // Atualizar status visual dos módulos
+        function updateModuleStatus() {
+            moduleCards.forEach(card => {
+                const moduleId = card.dataset.module;
+                const moduleStatus = userData.modules[moduleId].status;
+                
+                // Remover status antigos
+                card.classList.remove('locked');
+                
+                // Adicionar status atual
+                if (moduleStatus === 'locked') {
+                    card.classList.add('locked');
+                }
+                
+                // Atualizar badge de status
+                const statusBadge = card.querySelector('.status-badge');
+                if (statusBadge) {
+                    statusBadge.className = 'status-badge ' + moduleStatus;
+                    statusBadge.textContent = moduleStatus === 'not-started' ? 'Não iniciado' : 
+                                             moduleStatus === 'in-progress' ? 'Em progresso' : 
+                                             moduleStatus === 'completed' ? 'Concluído' : 'Bloqueado';
+                }
+            });
+        }
+        
+        // Função para mostrar notificações (substitui os alerts)
+        function showNotification(message, duration = 3000) {
+            notificationElement.textContent = message;
+            notificationElement.classList.add('show');
+            
+            setTimeout(() => {
+                notificationElement.classList.remove('show');
+            }, duration);
+        }
+        
+        // Carregar conteúdo do módulo no diálogo
+        function loadModuleContent(moduleId) {
+            if (userData.modules[moduleId].status === 'locked') {
+                return; // Não abrir módulos bloqueados
+            }
+            
+            const module = modulesData[moduleId];
+            if (!module) return;
+            
+            let content = `<h2>${module.title}</h2>
+                          <p>${module.description}</p>
+                          <div class="progress-bar" style="margin: 20px 0;">
+                              <div class="progress-value" style="width: ${userData.modules[moduleId].progress}%;"></div>
+                          </div>`;
+            
+            // Adicionar lições do módulo
+            content += `<h3>Lições</h3>
+                        <div style="margin-top: 20px;">`;
+            
+            module.lessons.forEach((lesson, index) => {
+                const lessonStatus = userData.modules[moduleId].lessons[index] || 'not-started';
+                const statusBadge = lessonStatus === 'completed' ? 
+                                    `<span class="badge completed">Concluída</span>` : 
+                                    lessonStatus === 'in-progress' ? 
+                                    `<span class="badge in-progress">Em progresso</span>` : '';
+                
+                content += `
+                    <div class="module-lesson" data-lesson="${index}">
+                        <h3>
+                            <span>${lesson.title}</span>
+                            ${statusBadge}
+                        </h3>
+                        <div class="lesson-content-container" style="display: none;">
+                            ${lesson.content}
+                        </div>
+                        <button class="btn btn-outline toggle-lesson">Ver Lição</button>
+                    </div>
+                `;
+            });
+            
+            content += `</div>`;
+            
+            moduleDialogContent.innerHTML = content;
+            moduleDialog.classList.add('active');
+            
+            // Marcar módulo como em progresso se ainda não iniciado
+            if (userData.modules[moduleId].status === 'not-started') {
+                userData.modules[moduleId].status = 'in-progress';
+                saveUserData();
+                updateModuleStatus();
+            }
+            
+            // Adicionar listeners para toggles de lições
+            const lessonToggles = moduleDialogContent.querySelectorAll('.toggle-lesson');
+            lessonToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const lesson = this.closest('.module-lesson');
+                    const contentContainer = lesson.querySelector('.lesson-content-container');
+                    
+                    if (contentContainer.style.display === 'none') {
+                        contentContainer.style.display = 'block';
+                        this.textContent = 'Ocultar Lição';
+                        
+                        // Inicializar quizes na lição quando aberta
+                        initQuizzes(contentContainer);
+                        
+                        // Inicializar jogo da memória se existir
+                        initMemoryGame(contentContainer);
+                        
+                        // Marcar lição como em progresso
+                        const lessonIndex = lesson.dataset.lesson;
+                        if (!userData.modules[moduleId].lessons[lessonIndex] || 
+                            userData.modules[moduleId].lessons[lessonIndex] === 'not-started') {
+                            userData.modules[moduleId].lessons[lessonIndex] = 'in-progress';
+                            saveUserData();
+                        }
+                    } else {
+                        contentContainer.style.display = 'none';
+                        this.textContent = 'Ver Lição';
+                    }
+                });
+            });
+        }
+        
+        // Inicializar quizzes
+        function initQuizzes(container) {
+            const quizOptions = container.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.quiz-question');
+                    const options = questionContainer.querySelectorAll('.quiz-option');
+                    
+                    // Desmarcar outras opções
+                    options.forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    
+                    // Marcar opção selecionada
+                    this.classList.add('selected');
+                    
+                    // Verificar resposta
+                    setTimeout(() => {
+                        if (this.dataset.correct === 'true') {
+                            this.classList.add('correct');
+                            
+                            // Adicionar pontos ao acertar
+                            userData.xpPoints += 5;
+                            updateProgress();
+                            saveUserData();
+                            
+                            showNotification("🎉 Resposta correta! +5 XP");
+                        } else {
+                            this.classList.add('incorrect');
+                            const correctOption = Array.from(options).find(opt => opt.dataset.correct === 'true');
+                            if (correctOption) correctOption.classList.add('correct');
+                            
+                            showNotification("❌ Resposta incorreta. Tente novamente!");
+                        }
+                    }, 500);
+                });
+            });
+        }
+        
+        // Inicializar jogo de memória
+        function initMemoryGame(container) {
+            const memoryGameContainer = container.querySelector('#number-memory-game');
+            if (!memoryGameContainer) return;
+            
+            // Criar pares para o jogo da memória (números e palavras)
+            const pairs = [
+                { front: "1", back: "one" },
+                { front: "2", back: "two" },
+                { front: "3", back: "three" },
+                { front: "4", back: "four" },
+                { front: "5", back: "five" },
+                { front: "6", back: "six" },
+                { front: "7", back: "seven" },
+                { front: "8", back: "eight" }
+            ];
+            
+            // Duplicar e embaralhar os pares
+            const allCards = [...pairs, ...pairs].sort(() => Math.random() - 0.5);
+            
+            // Criar cartões no HTML
+            memoryGameContainer.innerHTML = '';
+            allCards.forEach((card, index) => {
+                memoryGameContainer.innerHTML += `
+                    <div class="memory-card" data-value="${card.front}-${card.back}">
+                        <div class="front">?</div>
+                        <div class="back">${card.front === card.back ? card.front : card.front === '1' || card.front === '2' ? card.front : card.back}</div>
+                    </div>
+                `;
+            });
+            
+            // Inicializar lógica do jogo
+            const cards = memoryGameContainer.querySelectorAll('.memory-card');
+            let hasFlippedCard = false;
+            let lockBoard = false;
+            let firstCard, secondCard;
+            
+            function flipCard() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+                
+                this.classList.add('flipped');
+                
+                if (!hasFlippedCard) {
+                    // Primeira carta virada
+                    hasFlippedCard = true;
+                    firstCard = this;
+                    return;
+                }
+                
+                // Segunda carta virada
+                secondCard = this;
+                checkForMatch();
+            }
+            
+            function checkForMatch() {
+                // Verificar se as cartas formam um par
+                const isMatch = firstCard.dataset.value === secondCard.dataset.value ||
+                                firstCard.dataset.value.split('-')[0] === secondCard.dataset.value.split('-')[1] ||
+                                firstCard.dataset.value.split('-')[1] === secondCard.dataset.value.split('-')[0];
+                
+                if (isMatch) {
+                    disableCards();
+                    
+                    // Adicionar pontos ao encontrar um par
+                    userData.xpPoints += 10;
+                    userData.wordsLearned += 1;
+                    updateProgress();
+                    saveUserData();
+                    
+                    showNotification("🎉 Par encontrado! +10 XP");
+                } else {
+                    unflipCards();
+                }
+            }
+            
+            function disableCards() {
+                firstCard.removeEventListener('click', flipCard);
+                secondCard.removeEventListener('click', flipCard);
+                
+                resetBoard();
+            }
+            
+            function unflipCards() {
+                lockBoard = true;
+                
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    
+                    resetBoard();
+                }, 1500);
+            }
+            
+            function resetBoard() {
+                [hasFlippedCard, lockBoard] = [false, false];
+                [firstCard, secondCard] = [null, null];
+            }
+            
+            cards.forEach(card => card.addEventListener('click', flipCard));
+        }
+        
+        function playAudio(item) {
+    try {
+        // Criar um objeto de síntese de fala
+        let utterance = new SpeechSynthesisUtterance(item);
+
+        utterance.lang = "en-US"; // Configura para inglês (mude para pt-BR se precisar)
+        utterance.rate = 1; // Velocidade normal da fala
+        utterance.pitch = 1; // Tom normal
+
+        speechSynthesis.speak(utterance);
+
+        // Mostra notificação
+        showNotification(`🔊 Reproduzindo: "${item}"`);
+    } catch (error) {
+        console.error("Erro ao reproduzir áudio:", error);
+        showNotification(`🔊 Erro ao reproduzir: "${item}"`);
+    }
+}
+
+// Lista de palavras para exercícios de pronúncia
+const pronunciationWords = ['Hello', 'Good morning', 'How are you?', 'Nice to meet you', 'Thank you'];
+let currentWordIndex = 0;
+
+// Avançar para a próxima palavra
+function nextWord() {
+    currentWordIndex = (currentWordIndex + 1) % pronunciationWords.length;
+    const wordDisplay = document.getElementById('word-display');
+    if (wordDisplay) {
+        wordDisplay.textContent = pronunciationWords[currentWordIndex];
+    }
+}
+
+        
+        // Frases para exercícios
+        const pronunciationPhrases = [
+            'Excuse me, can you help me, please?',
+            'Where is the bathroom?',
+            'How much does this cost?',
+            'I don\'t understand, could you repeat that?',
+            'My name is John and I\'m from Brazil.'
+        ];
+        let currentPhraseIndex = 0;
+        
+        // Avançar para a próxima frase
+        function nextPhrase() {
+            currentPhraseIndex = (currentPhraseIndex + 1) % pronunciationPhrases.length;
+            const phraseDisplay = document.getElementById('phrase-display');
+            if (phraseDisplay) {
+                phraseDisplay.textContent = pronunciationPhrases[currentPhraseIndex];
+            }
+        }
+        
+        // Event Listeners
+        startJourneyBtn.addEventListener('click', function() {
+            // Desbloquear o primeiro módulo se ainda não estiver desbloqueado
+            if (userData.modules[1].status === 'locked') {
+                userData.modules[1].status = 'not-started';
+                saveUserData();
+                updateModuleStatus();
+            }
+            
+            // Rolar para a seção de módulos
+            document.getElementById('modules').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        moduleCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const moduleId = this.dataset.module;
+                loadModuleContent(moduleId);
+            });
+        });
+        
+        closeDialog.addEventListener('click', function() {
+            moduleDialog.classList.remove('active');
+        });
+        
+        // Fechar diálogo ao clicar fora dele
+        moduleDialog.addEventListener('click', function(e) {
+            if (e.target === moduleDialog) {
+                moduleDialog.classList.remove('active');
+            }
+        });
+        
+        // Hamburger menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Processamento de respostas de conversação
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'send-response') {
+                const input = document.getElementById('conversation-response');
+                const response = input.value.trim();
+                const feedbackContainer = document.getElementById('conversation-feedback');
+                
+                if (response) {
+                    // Adicionar resposta do usuário
+                    feedbackContainer.innerHTML = `
+                        <div class="conversation-bubble user">
+                            <p>${response}</p>
+                        </div>
+                    `;
+                    
+                    // Mostrar indicador de carregamento
+                    feedbackContainer.innerHTML += `
+                        <div class="conversation-bubble assistant" id="loading-response">
+                            <p>Digitando...</p>
+                        </div>
+                    `;
+                    
+                    // Verificar se contém palavras-chave para feedback
+                    setTimeout(() => {
+                        document.getElementById('loading-response').remove();
+                        
+                        if (response.toLowerCase().includes('name') || 
+                            response.toLowerCase().includes('my') ||
+                            response.toLowerCase().includes('i')) {
+                            feedbackContainer.innerHTML += `
+                                <div class="conversation-bubble assistant">
+                                    <p><strong>Alex:</strong> It's nice to meet you!</p>
+                                </div>
+                            `;
+                            
+                            // Adicionar pontos por participar da conversa
+                            userData.xpPoints += 5;
+                            updateProgress();
+                            saveUserData();
+                            showNotification("🎯 Boa resposta! +5 XP");
+                            
+                        } else {
+                            feedbackContainer.innerHTML += `
+                                <div class="conversation-bubble assistant">
+                                    <p><strong>Alex:</strong> I don't understand. Could you tell me your name?</p>
+                                </div>
+                            `;
+                        }
+                        
+                        input.value = '';
+                    }, 1500);
+                }
+            } else if (e.target.id === 'send-question-1') {
+                const input = document.getElementById('question-response-1');
+                const response = input.value.trim();
+                const feedbackContainer = document.getElementById('question-feedback-1');
+                
+                if (response) {
+                    processConversationResponse('question-response-1', 'question-feedback-1', {
+                        nextQuestion: "Where are you from?",
+                        expectedKeywords: ['name', 'my', 'i am', "i'm"]
+                    });
+                }
+            } else if (e.target.id === 'send-hobby-1') {
+                const input = document.getElementById('hobby-response-1');
+                const response = input.value.trim();
+                const feedbackContainer = document.getElementById('hobby-feedback-1');
+                
+                if (response) {
+                    processConversationResponse('hobby-response-1', 'hobby-feedback-1', {
+                        nextQuestion: "That sounds interesting! How often do you do that?",
+                        expectedKeywords: ['like', 'enjoy', 'love', 'hobby', 'free time', 'play', 'watch', 'read']
+                    });
+                }
+            } else if (e.target.id === 'submit-presentation') {
+                const presentation = document.getElementById('personal-presentation').value.trim();
+                const feedbackContainer = document.getElementById('presentation-feedback');
+                
+                if (presentation.length > 50) {
+                    feedbackContainer.innerHTML = `
+                        <div style="padding: 15px; background-color: #ecfdf5; border-radius: 5px; margin-top: 15px;">
+                            <h4 style="color: var(--success-color); margin-bottom: 10px;">Ótimo trabalho! 👏</h4>
+                            <p>Sua apresentação pessoal foi enviada com sucesso. Você demonstrou bom uso do vocabulário e estruturas que aprendemos.</p>
+                            <p>Continue praticando para aprimorar suas habilidades!</p>
+                        </div>
+                    `;
+                    
+                    // Adicionar pontos e concluir a lição
+                    userData.xpPoints += 50;
+                    userData.progress += 10;
+                    updateProgress();
+                    saveUserData();
+                    
+                    showNotification("🎉 Apresentação enviada com sucesso! +50 XP");
+                } else {
+                    feedbackContainer.innerHTML = `
+                        <div style="padding: 15px; background-color: #fef2f2; border-radius: 5px; margin-top: 15px;">
+                            <h4 style="color: #ef4444; margin-bottom: 10px;">Texto muito curto</h4>
+                            <p>Sua apresentação precisa ter pelo menos 10-15 linhas conforme as instruções. Por favor, adicione mais detalhes e inclua as informações solicitadas.</p>
+                        </div>
+                    `;
+                }
+            } else if (e.target.id === 'complete-module') {
+                // Marcar módulo 1 como concluído e desbloquear módulo 2
+                userData.modules[1].status = 'completed';
+                userData.modules[1].progress = 100;
+                userData.modules[2].status = 'not-started';
+                
+                userData.lessonsCompleted += 5;
+                userData.progress += 15;
+                userData.xpPoints += 100;
+                
+                updateProgress();
+                saveUserData();
+                updateModuleStatus();
+                
+                // Fechar o diálogo
+                moduleDialog.classList.remove('active');
+                
+                showNotification("🏆 Parabéns! Você concluiu o Módulo 1! +100 XP", 5000);
+            }
+        });
+        
+        // Função para processar respostas de conversação
+        function processConversationResponse(inputId, feedbackId, options) {
+            const input = document.getElementById(inputId);
+            const response = input.value.trim();
+            const feedbackContainer = document.getElementById(feedbackId);
+            
+            if (response) {
+                // Adicionar resposta do usuário
+                feedbackContainer.innerHTML = `
+                    <div class="conversation-bubble user">
+                        <p>${response}</p>
+                    </div>
+                `;
+                
+                // Mostrar indicador de carregamento
+                feedbackContainer.innerHTML += `
+                    <div class="conversation-bubble assistant" id="loading-${inputId}">
+                        <p>Digitando...</p>
+                    </div>
+                `;
+                
+                // Verificar se contém palavras-chave para feedback
+                setTimeout(() => {
+                    document.getElementById(`loading-${inputId}`).remove();
+                    
+                    const containsKeyword = options.expectedKeywords.some(keyword => 
+                        response.toLowerCase().includes(keyword));
+                    
+                    if (containsKeyword) {
+                        feedbackContainer.innerHTML += `
+                            <div class="conversation-bubble assistant">
+                                <p><strong>Interviewer:</strong> ${options.nextQuestion}</p>
+                            </div>
+                        `;
+                        
+                        // Adicionar pontos por participar da conversa
+                        userData.xpPoints += 5;
+                        updateProgress();
+                        saveUserData();
+                        showNotification("🎯 Boa resposta! +5 XP");
+                    } else {
+                        feedbackContainer.innerHTML += `
+                            <div class="conversation-bubble assistant">
+                                <p><strong>Interviewer:</strong> I'm not sure I understand. Could you try answering with more details?</p>
+                            </div>
+                        `;
+                    }
+                    
+                    input.value = '';
+                }, 1500);
+            }
+        }
+        
+        // Inicializações
+        loadUserData();
+        updateProgress();
+        updateModuleStatus();
+        
+        // Simulando o uso da plataforma
+        setTimeout(() => {
+            // Desbloquear o primeiro módulo para iniciantes
+            if (userData.modules[1].status === 'locked') {
+                userData.modules[1].status = 'not-started';
+                saveUserData();
+                updateModuleStatus();
+            }
+        }, 1000);
+    </script>
+
+
+</body></html>
