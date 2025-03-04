@@ -1329,7 +1329,8 @@
                                 <p>Clique no botão para ouvir e repita a frase:</p>
                                 <div class="word-to-pronounce" id="phrase-display">Excuse me, can you help me, please?</div>
                                 <div class="pronunciation-btns">
-                                    <button class="btn btn-primary" onclick="playAudio('phrase1')">Ouvir Pronúncia</button>
+                                   <button class="btn btn-primary" onclick="playAudio()">Ouvir Pronúncia</button>
+
                                     <button class="btn btn-outline" onclick="nextPhrase()">Próxima Frase</button>
                                 </div>
                             </div>
@@ -1996,9 +1997,17 @@ function nextWord() {
             'Where is the bathroom?',
             'How much does this cost?',
             'I don\'t understand, could you repeat that?',
-            'My name is John and I\'m from Brazil.'
+            'My name is Simbine and I\'m from Mozambique.'
+            
         ];
         let currentPhraseIndex = 0;
+
+        function playAudio() {
+    const phrase = pronunciationPhrases[currentPhraseIndex]; // Obtém a frase atual
+    const utterance = new SpeechSynthesisUtterance(phrase); // Cria a fala
+    speechSynthesis.speak(utterance); // Fala a frase
+}
+
         
         // Avançar para a próxima frase
         function nextPhrase() {
