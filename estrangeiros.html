@@ -1,0 +1,599 @@
+<!DOCTYPE html><html lang="pt"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Contratação de Trabalhadores Estrangeiros em Moçambique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4a49b1',
+                        'gray-light': '#f8f9fa',
+                        'gray-dark': '#181818',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .content h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #5D5CDE;
+        }
+        
+        .dark .content h1 {
+            color: #8a89ff;
+        }
+        
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #5D5CDE;
+        }
+        
+        .dark .content h2 {
+            color: #8a89ff;
+        }
+        
+        .content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .content ul, .content ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .content ul {
+            list-style-type: disc;
+        }
+        
+        .content ol {
+            list-style-type: decimal;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .content th, .content td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .dark .content th, .dark .content td {
+            border-color: #374151;
+        }
+        
+        .content th {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+        
+        .dark .content th {
+            background-color: #1f2937;
+        }
+        
+        .content blockquote {
+            border-left: 4px solid #5D5CDE;
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 1rem;
+            color: #4b5563;
+        }
+        
+        .dark .content blockquote {
+            border-left-color: #8a89ff;
+            color: #9ca3af;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: black;
+                background-color: white;
+            }
+            
+            .content {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .print-content {
+                display: block !important;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-dark text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <header class="bg-primary text-white shadow-md no-print">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold">Manual de Contratação de Trabalhadores Estrangeiros</h1>
+                </div>
+                <div class="mt-4 md:mt-0 flex space-x-4">
+                    <button id="theme-toggle" class="px-3 py-1 rounded bg-white/20 hover:bg-white/30 transition">
+                        Alternar Tema
+                    </button>
+                    <button id="print-button" class="px-3 py-1 rounded bg-white/20 hover:bg-white/30 transition">
+                        Imprimir
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="italic">Por Alércio Simbine, Licenciado em Direito pela Universidade Eduardo Mondlane</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row">
+        <!-- Sidebar/TOC -->
+        <aside class="md:w-1/4 md:pr-8 mb-8 md:mb-0 no-print">
+            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow sticky top-4">
+                <h2 class="text-lg font-bold mb-4 text-primary dark:text-white">Índice</h2>
+                <div class="space-y-2">
+                    <input type="text" id="search-input" placeholder="Pesquisar..." class="w-full px-3 py-2 border rounded text-base focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <nav class="mt-4 text-sm">
+                    <ul class="space-y-2" id="toc">
+                        <!-- Será preenchido via JavaScript -->
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:w-3/4">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md content" id="content">
+                <!-- Conteúdo será inserido aqui via JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 py-6 mt-12 no-print">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                © 2024 Alércio Simbine. Manual baseado na Lei do Trabalho (Lei n.º 13/2023, de 25 de Agosto) e 
+                Decreto n.º 88/2024 de 17 de Dezembro.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Versão para impressão (oculta por padrão) -->
+    <div class="hidden print-content" id="print-content">
+        <!-- Será preenchido com todo o conteúdo antes de imprimir -->
+    </div>
+
+    <script>
+        // Dark mode setup
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+        
+        // Print functionality
+        document.getElementById('print-button').addEventListener('click', () => {
+            const printContent = document.getElementById('print-content');
+            printContent.innerHTML = document.getElementById('content').innerHTML;
+            window.print();
+        });
+
+        // Conteúdo do manual em formato Markdown
+        const manualContent = `
+# Manual de Contratação de Trabalhadores Estrangeiros em Moçambique
+
+## Introdução
+
+Este manual foi elaborado para orientar profissionais de Recursos Humanos, gestores e praticantes do Direito sobre os procedimentos e requisitos legais para a contratação de trabalhadores estrangeiros em Moçambique, de acordo com a Lei do Trabalho (Lei n.º 13/2023, de 25 de Agosto) e o Decreto n.º 88/2024 de 17 de Dezembro, que regulamenta os mecanismos e procedimentos para contratação de cidadãos de nacionalidade estrangeira.
+
+O objectivo é proporcionar um guia prático e abrangente que permita a compreensão do regime jurídico aplicável e os procedimentos administrativos necessários para assegurar a conformidade legal na contratação de estrangeiros no mercado de trabalho moçambicano.
+
+## Fundamentos Legais
+
+A contratação de trabalhadores estrangeiros em Moçambique é regida principalmente por:
+
+- **Lei do Trabalho (Lei n.º 13/2023, de 25 de Agosto)**: Estabelece o regime jurídico geral das relações individuais e coletivas de trabalho, incluindo disposições específicas sobre trabalhadores estrangeiros na Subsecção IV, Artigos 33 a 36.
+
+- **Decreto n.º 88/2024 de 17 de Dezembro**: Regulamenta os mecanismos e procedimentos para a contratação de cidadãos de nacionalidade estrangeira, detalhando os requisitos, quotas e procedimentos administrativos.
+
+## Disposições da Lei do Trabalho (Lei n.º 13/2023)
+
+### Artigo 33 - Trabalhador Estrangeiro
+
+1. **Integração de trabalhadores nacionais**: O empregador deve criar condições para a integração de trabalhadores moçambicanos qualificados nos postos de trabalho de maior complexidade técnica e em lugares de gestão e administração da empresa.
+
+2. **Igualdade de tratamento**: O trabalhador estrangeiro que exerça uma actividade profissional no território moçambicano tem direito à igualdade de tratamento e oportunidades relativamente aos trabalhadores nacionais, no quadro das normas e princípios de direito internacional e em obediência às cláusulas de reciprocidade acordadas entre a República de Moçambique e qualquer outro País.
+
+3. **Restrições**: O Estado moçambicano pode reservar exclusivamente a cidadãos nacionais determinadas funções ou actividades que se enquadrem nas restrições ao seu exercício por cidadão estrangeiro, nomeadamente em razão do interesse público.
+
+4. **Autorização**: O empregador nacional ou estrangeiro pode ter ao seu serviço, ainda que realize trabalho não subordinado, trabalhador estrangeiro mediante a autorização do Ministro que superintende a área do Trabalho ou das entidades a quem este delegar, excepto nos casos de comunicação previstos nos números 1 e 2 do artigo 34.
+
+### Artigo 34 - Quotas do Trabalhador Estrangeiro
+
+1. **Sistema de quotas por tipo de empregador**:
+   - Grandes empregadores (mais de 100 trabalhadores): 5% da totalidade dos trabalhadores
+   - Médios empregadores (31 a 100 trabalhadores): 8% da totalidade dos trabalhadores
+   - Pequenos empregadores (11 a 30 trabalhadores): 10% da totalidade dos trabalhadores
+   - Micro empregadores (até 10 trabalhadores): 15% da totalidade dos trabalhadores
+
+2. **Projectos de investimento aprovados pelo Governo**: Em projetos de investimento aprovados pelo Governo, nos quais se prevê a contratação de trabalhadores estrangeiros em percentagem inferior ou superior à prevista, não é exigível a autorização de trabalho, bastando a comunicação ao Ministro que superintende a área de Trabalho.
+
+3. **Áreas especializadas**: A contratação de cidadãos estrangeiros para trabalho em organizações não-governamentais, trabalho de investigação científica, docência, medicina, enfermagem, pilotagem de aviação civil e em outras áreas de assistência técnica especializada, ou a cedência de trabalhadores estrangeiros, é decidida por despacho do Ministro que superintende a área do Trabalho, ouvida a entidade que superintende o sector em causa.
+
+4. **Cedência de trabalhadores**: A cedência de trabalhadores estrangeiros pode ser por regime de quotas, desde que a empresa utilizadora tenha quota disponível.
+
+### Artigo 35 - Restrições à Contratação de Trabalhador Estrangeiro
+
+1. **Entrada e permanência**: É vedada a contratação de cidadãos estrangeiros quando tenham entrado no País para motivos declaradamente diferentes do trabalho.
+
+2. **Excepções - acordos bilaterais**: São exceptuados os acordos bilaterais celebrados entre o Estado moçambicano e qualquer outro Estado que com ele mantém relações diplomáticas e consulares para, em regime de reciprocidade e proporcionalidade, empregar cônjuges ou filhos de agentes diplomáticos em missão.
+
+3. **Residência temporária**: O trabalhador estrangeiro com residência temporária não deve permanecer em território nacional finda a vigência do contrato de trabalho em virtude do qual entrou na República de Moçambique.
+
+4. **Apátridas**: O regime aplica-se também ao trabalho do apátrida em território moçambicano.
+
+### Artigo 36 - Condições para Contratação de Trabalhador Estrangeiro
+
+1. **Qualificações**: O trabalhador estrangeiro deve possuir as qualificações académicas ou profissionais necessárias e a sua admissão só pode efetuar-se desde que não haja nacionais que possuam tais qualificações ou o seu número seja insuficiente.
+
+2. **Procedimento para autorização**: A contratação de trabalhador estrangeiro, nos casos em que carece de autorização do Ministro que superintende a área do Trabalho, faz-se mediante requerimento do empregador, com a indicação de:
+   - Denominação, sede e ramo de atividade
+   - Identificação do trabalhador estrangeiro a contratar
+   - Tarefas a executar
+   - Remuneração prevista
+   - Qualificação profissional devidamente comprovada
+   - Duração do contrato
+
+3. **Regulamentação específica**: Os mecanismos e procedimentos para contratação de cidadãos de nacionalidade estrangeira são regulados em legislação específica.
+
+## Regimes de Contratação de Estrangeiros (Decreto n.º 88/2024)
+
+Segundo o Decreto n.º 88/2024 de 17 de Dezembro, existem quatro regimes de contratação de cidadãos estrangeiros:
+
+### 1. Regime de Autorização de Trabalho
+
+#### Condições e Procedimentos:
+
+1. **Requerimento**: A contratação é feita mediante requerimento dirigido ao Ministro que superintende a área do trabalho ou às entidades a quem este delegar.
+
+2. **Prazo para despacho**: O expediente deve ser despachado no prazo máximo de 15 dias úteis, contados a partir da sua recepção pela entidade competente.
+
+3. **Requisitos do requerimento**:
+   - Denominação, endereço e ramo de atividade da entidade requerente
+   - Identificação do representante da entidade empregadora
+   - Identificação do cidadão estrangeiro, categoria, tarefas ou função a exercer
+   - Fundamentação do pedido
+
+4. **Documentação necessária**:
+   - Dois exemplares do contrato de trabalho
+   - Certificado de habilitações literárias ou técnico-profissionais e equivalência
+   - Certidão de quitação da empresa, emitida pela entidade das Finanças
+   - Parecer do delegado sindical, comité sindical ou sindicato do ramo
+   - Cópia do passaporte ou documento de identificação de residência do estrangeiro
+   - Cópia do alvará ou da licença do exercício de atividade
+   - Comprovativo do pagamento da taxa (10 salários mínimos do sector)
+
+5. **Assistência especializada**: Para trabalho em ONGs, investigação científica, docência, medicina, enfermagem, pilotagem de aviação civil e assistência técnica especializada, é exigido parecer da entidade que superintende o setor.
+
+### 2. Regime de Quotas
+
+#### Condições e Procedimentos:
+
+1. **Comunicação prévia**: O empregador pode ter ao seu serviço cidadãos estrangeiros mediante comunicação prévia ao ministro que superintende a área do Trabalho.
+
+2. **Determinação da quota**:
+   - Grande empregador (mais de 100 trabalhadores): 5% da totalidade
+   - Médio empregador (31 a 100 trabalhadores): 8% da totalidade
+   - Pequeno empregador (11 a 30 trabalhadores): 10% da totalidade
+   - Micro empregador (até 10 trabalhadores): 15% da totalidade
+
+3. **Documentação necessária**:
+   - Dois exemplares do formulário de comunicação
+   - Dois exemplares do contrato de trabalho
+   - Certificado de habilitações literárias ou técnico-profissionais
+   - Certidão de quitação da empresa
+   - Cópia do passaporte ou documento de identificação
+   - Pagamento da taxa (5 salários mínimos do sector)
+
+4. **Verificação da conformidade**: A conformidade da comunicação deve ser verificada e comunicada no prazo de 5 dias úteis.
+
+### 3. Regime de Contratação em Projetos de Investimento Aprovados pelo Governo
+
+1. **Comunicação prévia**: Em projetos aprovados pelo Governo com percentagens diferentes das quotas padrão, basta a comunicação prévia.
+
+2. **Documentação requerida**: 
+   - Similar ao regime de quotas
+   - Cópia do projeto de investimento ou certificado autorizado pelo Governo
+   - Indicação do número de trabalhadores nacionais e estrangeiros por fase do projeto
+
+3. **Verificação da conformidade**: Similar ao regime de quotas.
+
+### 4. Regime do Trabalho de Curta Duração
+
+1. **Definição**: Trabalho que não excede 120 dias por ano civil, seguidos ou interpolados.
+
+2. **Documentação necessária**:
+   - Comunicação com denominação e endereço da entidade
+   - Identificação do cidadão estrangeiro e função
+   - Período, datas de início e termo do trabalho
+   - Fundamentação
+   - Documento de identificação do estrangeiro
+   - Alvará ou licença
+   - Pagamento da taxa (1 salário mínimo do sector)
+
+3. **Resposta**: A conformidade deve ser verificada no prazo de 5 dias úteis.
+
+## Contrato de Trabalho para Estrangeiros
+
+### Forma e Conteúdo
+
+1. **Forma escrita obrigatória**: O contrato deve ser datado e assinado por ambas as partes.
+
+2. **Conteúdo obrigatório**:
+   - Identificação das partes
+   - Categoria profissional, tarefas ou atividades acordadas
+   - Local de trabalho
+   - Duração do contrato
+   - Remuneração, forma e periodicidade do pagamento
+   - Data de início e do termo da prestação
+
+3. **Alterações**: Qualquer alteração das condições de trabalho deve ser comunicada à entidade que superintende a área do trabalho.
+
+### Duração e Cessação
+
+1. **Duração máxima**: O contrato é celebrado por um período máximo de dois anos, renovável mediante novo pedido.
+
+2. **Não conversão**: Independentemente do número de renovações, o contrato não se converte em contrato por tempo indeterminado.
+
+3. **Comunicação da cessação**: O empregador deve comunicar a cessação do contrato à entidade do trabalho e aos serviços de migração no prazo de 5 dias.
+
+## Transferência do Trabalhador Estrangeiro
+
+### Tipos e Condições
+
+1. **Tipos de transferência**:
+   - Temporária (até 6 meses, podendo estender-se até 1 ano)
+   - Definitiva (até o termo do contrato)
+   - Trabalho itinerante
+
+2. **Condições para transferência definitiva**:
+   - Mútuo acordo
+   - Em caso de mudança parcial da entidade empregadora, deve haver disponibilidade de quota no local de destino
+
+3. **Mobilidade de gestores**: Sócios, administradores e mandatários podem se deslocar para locais fora do domicílio profissional, mediante comunicação.
+
+4. **Trabalho itinerante**: Aplica-se aos ramos de obras públicas, agricultura, assentamento de linha ferroviária, aquacultura, pipeline, marítimo e áreas afins.
+
+## Contratação no Âmbito das Relações Diplomáticas e Consulares
+
+### Condições Especiais
+
+1. **Cônjuges e filhos de diplomatas**: Podem celebrar contratos de trabalho mesmo com visto diferente do de trabalho, havendo acordos bilaterais em regime de reciprocidade.
+
+2. **Requisitos adicionais**: Documento comprovativo da qualidade de cônjuge, filho ou adoptado.
+
+3. **Formalidades específicas**: O pedido é remetido pelo país acreditado ao Ministério dos Negócios Estrangeiros, que emite parecer e remete ao Ministério do Trabalho.
+
+## Fiscalização e Sanções
+
+### Inspeção e Multas
+
+1. **Competência**: A Inspeção-Geral do Trabalho fiscaliza o cumprimento das disposições legais.
+
+2. **Sanções por infrações**:
+   - Suspensão e multa de 5 a 10 salários mensais do trabalhador em relação ao qual se verifique a infração
+   - Prática sucessiva constitui transgressão agravada com multa elevada para o dobro
+   - Declaração falsa de contratação de nacionais para alargar a quota: suspensão e multa
+
+3. **Destino das receitas**:
+   - 55% para o Tesouro Público
+   - 35% para despesas de tramitação processual
+   - 10% para promoção de medidas ativas de emprego
+
+## Boas Práticas para Empregadores
+
+### Antes da Contratação
+
+1. **Verificar a disponibilidade de trabalhadores nacionais** qualificados.
+
+2. **Identificar claramente o regime de contratação** aplicável ao caso.
+
+3. **Preparar um plano de formação e substituição gradual** para transmissão de conhecimentos.
+
+### Durante o Processo de Contratação
+
+1. **Preparar adequadamente a documentação** necessária conforme o regime.
+
+2. **Respeitar os prazos** estabelecidos na legislação.
+
+3. **Garantir o pagamento correto das taxas** conforme o regime aplicável.
+
+### Durante a Vigência do Contrato
+
+1. **Implementar o plano de formação** para trabalhadores nacionais.
+
+2. **Manter a conformidade com as quotas** ao admitir ou demitir trabalhadores.
+
+3. **Comunicar alterações contratuais** às autoridades competentes.
+
+### Ao Término do Contrato
+
+1. **Comunicar a cessação** às autoridades competentes no prazo de 5 dias.
+
+2. **Ajustar a quota de trabalhadores estrangeiros** se houver redução no quadro de trabalhadores nacionais.
+
+## Perguntas Frequentes (FAQ)
+
+### Questões Gerais
+
+**P: Como são classificados os empregadores para efeitos de quotas?**
+R: Grande empregador (mais de 100 trabalhadores), médio empregador (31 a 100), pequeno empregador (11 a 30) e micro empregador (até 10).
+
+**P: Um micro empregador com menos de 10 funcionários pode contratar estrangeiros?**
+R: Sim, pode ter ao seu serviço um cidadão estrangeiro, mesmo que o número total de trabalhadores nacionais seja inferior a dez.
+
+### Quotas e Autorizações
+
+**P: É possível ceder trabalhadores estrangeiros entre empresas?**
+R: Sim, desde que a empresa utilizadora tenha quota disponível.
+
+**P: Como funciona a contratação em projetos de investimento aprovados pelo Governo?**
+R: Basta comunicação prévia, apresentando a cópia do projeto aprovado que mencione o número autorizado de estrangeiros.
+
+### Transferência de Trabalhadores
+
+**P: É possível transferir temporariamente um trabalhador estrangeiro?**
+R: Sim, por até 6 meses, podendo estender-se até 1 ano em circunstâncias excepcionais.
+
+**P: O regime de trabalho itinerante se aplica a todos os setores?**
+R: Não, aplica-se apenas aos ramos de obras públicas, agricultura, assentamento de linha ferroviária, aquacultura, pipeline, marítimo e áreas afins.
+
+## Conclusão
+
+A contratação de trabalhadores estrangeiros em Moçambique está sujeita a um regime jurídico específico, que visa equilibrar a necessidade de mão-de-obra qualificada com a proteção e desenvolvimento do mercado de trabalho nacional. O estrito cumprimento dos procedimentos legais é fundamental para evitar sanções e garantir relações de trabalho estáveis e produtivas.
+
+Este manual procurou oferecer uma visão abrangente e prática do regime jurídico aplicável, baseado na Lei do Trabalho (Lei n.º 13/2023, de 25 de Agosto) e no Decreto n.º 88/2024 de 17 de Dezembro, sem pretender esgotar o tema ou substituir o aconselhamento jurídico especializado.
+
+## Referências Legais
+
+- Lei do Trabalho (Lei n.º 13/2023, de 25 de Agosto), Subsecção IV, Artigos 33 a 36
+- Decreto n.º 88/2024 de 17 de Dezembro (Regulamento dos Mecanismos e Procedimentos para Contratação de Cidadãos de Nacionalidade Estrangeira)
+
+## Sobre o Autor
+
+**Alércio Simbine** é licenciado em Direito pela Universidade Eduardo Mondlane, com experiência como Assistente Jurídico adquirida em dois anos de trabalho no IPAJ (Instituto de Patrocínio e Assistência Jurídica). Atuou como Gestor de Conteúdo e Assistente de Recursos Humanos na UX Information Technologies, combinando conhecimentos jurídicos e práticas de gestão de recursos humanos.
+`;
+
+        // Renderizar o conteúdo Markdown usando marked.js
+        document.getElementById('content').innerHTML = marked.parse(manualContent);
+
+        // Gerar o índice (TOC) automaticamente
+        const headings = document.querySelectorAll('#content h1, #content h2');
+        const toc = document.getElementById('toc');
+        
+        headings.forEach((heading, index) => {
+            const id = `section-${index}`;
+            heading.id = id;
+            
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            
+            link.href = `#${id}`;
+            link.textContent = heading.textContent;
+            link.className = heading.tagName === 'H1' ? 'font-bold text-primary dark:text-white' : 
+                             'pl-4 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-white';
+            
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            listItem.appendChild(link);
+            toc.appendChild(listItem);
+        });
+
+        // Implementar a funcionalidade de pesquisa
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm.length < 2) {
+                // Mostrar todas as seções se o termo de pesquisa for muito curto
+                document.querySelectorAll('#content h1, #content h2, #content h3, #content p, #content li').forEach(element => {
+                    element.style.display = '';
+                    if (element.parentElement) {
+                        element.parentElement.style.display = '';
+                    }
+                });
+                return;
+            }
+            
+            // Pesquisar dentro do conteúdo e destacar os resultados
+            const contentElements = document.querySelectorAll('#content h1, #content h2, #content h3, #content p, #content li');
+            let foundSomething = false;
+            
+            contentElements.forEach(element => {
+                const text = element.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    element.style.display = '';
+                    if (element.parentElement) {
+                        element.parentElement.style.display = '';
+                    }
+                    foundSomething = true;
+                    
+                    // Destaque para o texto encontrado
+                    const regex = new RegExp(searchTerm, 'gi');
+                    element.innerHTML = element.textContent.replace(
+                        regex, 
+                        match => `<span class="bg-yellow-200 dark:bg-yellow-700">${match}</span>`
+                    );
+                } else {
+                    // Não escondemos elementos não correspondentes para manter a estrutura do documento
+                }
+            });
+            
+            if (!foundSomething) {
+                // Se nada for encontrado, exibir uma mensagem
+                console.log('Nenhum resultado encontrado para: ' + searchTerm);
+            }
+        });
+    </script>
+
+
+</body></html>

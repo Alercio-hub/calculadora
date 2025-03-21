@@ -1,0 +1,705 @@
+<!DOCTYPE html><html lang="pt"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Lei do Trabalho - Moçambique</title>
+    <style>
+        :root {
+            --primary-color: #0e8b44;
+            --secondary-color: #f8c304;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --heading-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --body-font: 'Arial', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-style: italic;
+        }
+        
+        .flag-colors {
+            display: flex;
+            height: 8px;
+            margin-top: 10px;
+        }
+        
+        .flag-colors div {
+            flex: 1;
+        }
+        
+        .flag-color-1 {
+            background-color: #0e8b44; /* verde */
+        }
+        
+        .flag-color-2 {
+            background-color: #000000; /* preto */
+        }
+        
+        .flag-color-3 {
+            background-color: #f8c304; /* amarelo */
+        }
+        
+        .chat-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            padding: 5px;
+        }
+        
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+        }
+        
+        .bot-message {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .input-area {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .input-area input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            outline: none;
+            margin-right: 10px;
+        }
+        
+        .input-area input:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .input-area button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .input-area button:hover {
+            background-color: #0a6d35;
+        }
+        
+        .examples {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .examples h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-family: var(--heading-font);
+        }
+        
+        .example-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .example-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        
+        .example-button:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: #777;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .typing-indicator.show {
+            opacity: 1;
+        }
+        
+        .typing-indicator span {
+            height: 10px;
+            width: 10px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.3s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-5px); }
+            50% { transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .example-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bot da Lei do Trabalho de Moçambique</h1>
+            <p>Lei n.º 13/2023, de 25 de Agosto</p>
+            <div class="flag-colors">
+                <div class="flag-color-1"></div>
+                <div class="flag-color-2"></div>
+                <div class="flag-color-3"></div>
+            </div>
+        </header>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <img src="/api/placeholder/40/40" alt="Bot Logo">
+                <div>
+                    <h2>AssistenteLaboralMZ</h2>
+                    <small>Online</small>
+                </div>
+            </div>
+            
+            <div class="chat-box" id="chatBox">
+                <!-- Mensagens aparecerão aqui -->
+                
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Digite sua pergunta sobre a Lei do Trabalho...">
+                <button id="sendButton">Enviar</button>
+            </div>
+        </div>
+        
+        <div class="examples">
+            <h3>Exemplos de perguntas:</h3>
+            <div class="example-buttons" id="exampleButtons">
+                <!-- Botões de exemplo serão adicionados aqui via JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>Portfólio - Bot da Lei do Trabalho de Moçambique | Lei n.º 13/2023, de 25 de Agosto</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Classe BotLeiTrabalhoMocambique convertida do Python para JavaScript
+        class BotLeiTrabalhoMocambique {
+            constructor() {
+                this.nome = "AssistenteLaboralMZ";
+                this.versao = "1.0";
+                this.info_lei = "Lei do Trabalho de Moçambique - Lei n.º 13/2023, de 25 de Agosto";
+                // Base de conhecimento expandida sobre a Lei do Trabalho
+                this.conhecimento = {
+                    "geral": "A Lei n.º 13/2023, de 25 de Agosto, estabelece o regime jurídico aplicável às relações individuais e coletivas de trabalho em Moçambique. Esta lei revogou a anterior Lei n.º 23/2007, de 1 de Agosto, introduzindo várias atualizações às relações laborais no país. Aplicável a todos os trabalhadores e empregadores de todos os ramos de atividade, sejam nacionais ou estrangeiros, que exerçam a sua atividade em Moçambique.",
+                    
+                    "principios": {
+                        "fundamentais": "A Lei estabelece princípios fundamentais como o direito ao trabalho, a estabilidade no emprego, a igualdade de oportunidades e tratamento no emprego, e a proibição de trabalho forçado. Estes princípios estão alinhados com as convenções da Organização Internacional do Trabalho (OIT).",
+                        "protecao": "A Lei garante especial proteção a trabalhadores menores, idosos, com deficiência, doentes ou acidentados, e mulheres gestantes ou em período de amamentação.",
+                        "igualdade": "É garantido a todo trabalhador o direito à igualdade de oportunidades e de tratamento no emprego e na formação profissional, sem discriminação de origem, cor, raça, sexo, religião, opinião política, etc."
+                    },
+                    
+                    "contratos": {
+                        "tipos": "A lei reconhece vários tipos de contratos de trabalho (Artigo 36): por tempo indeterminado, a termo certo (máximo 5 anos), a termo incerto, eventuais (até 90 dias por ano com o mesmo empregador), sazonais e a tempo parcial (não excedendo 75% do tempo normal).",
+                        "periodo_probatorio": "O período probatório varia conforme o tipo de contrato (Artigo 53). Para contratos por tempo indeterminado é de até 90 dias para trabalhadores não qualificados e de até 180 dias para trabalhadores qualificados e cargos de chefia. Em contratos a termo, o período probatório não pode exceder 15 dias para contratos inferiores a seis meses, e 30 dias nos demais casos.",
+                        "formalizacao": "O contrato individual de trabalho pode ser celebrado verbalmente ou por escrito (Artigo 38), mas deve ser obrigatoriamente escrito quando envolve contratos a termo, trabalho de estrangeiros, contrato de aprendizagem, entre outros casos específicos.",
+                        "rescisao": "A rescisão do contrato pode ocorrer por (Artigos 59 a 77): acordo mútuo, por justa causa (violações graves de deveres laborais), por razões objetivas (econômicas, tecnológicas ou estruturais), denúncia (por iniciativa do trabalhador com pré-aviso) ou rescisão por iniciativa do empregador, cada um com seus requisitos e consequências específicas.",
+                        "compensacao": "Em caso de rescisão por iniciativa do empregador sem justa causa, o trabalhador tem direito a uma compensação calculada com base na antiguidade (Artigo 69): 1 mês de salário por cada ano de serviço para os primeiros 5 anos, 1,5 meses de salário por cada ano adicional entre 6 e 10 anos, e 2 meses de salário por cada ano adicional a partir do 11º ano.",
+                        "aviso_previo": "O período de aviso prévio varia conforme a duração do contrato (Artigo 127). Para contratos por tempo indeterminado, vai de 15 a 90 dias, dependendo da antiguidade do trabalhador."
+                    },
+                    
+                    "jornada": {
+                        "normal": "A jornada normal de trabalho não pode exceder 48 horas semanais e 8 horas diárias (Artigo 87). É permitida a distribuição do período normal de trabalho, de forma variável, ao longo do dia, da semana ou do mês, desde que a média não ultrapasse os limites máximos.",
+                        "extraordinaria": "O trabalho extraordinário é limitado a 8 horas por semana, 96 horas por trimestre e 200 horas por ano (Artigo 90). A lei prevê acréscimos remuneratórios: 50% na primeira hora, 75% nas horas seguintes, e 100% em feriados e dias de descanso semanal. Trabalhadores a tempo parcial, menores, gestantes e portadores de deficiência possuem limitações específicas.",
+                        "noturno": "O trabalho noturno é aquele realizado entre as 20:00 horas de um dia e as 5:00 horas do dia seguinte (Artigo 91), com direito a acréscimo de 25% sobre o salário normal. Há regras especiais para estabelecimentos industriais com vários turnos.",
+                        "turnos": "O trabalho em regime de turnos é permitido (Artigo 92) quando o funcionamento do estabelecimento ultrapassa os limites do período normal de trabalho. A duração de trabalho em cada turno não pode exceder o limite máximo do período normal diário.",
+                        "descanso": "O trabalhador tem direito a um dia de descanso semanal obrigatório (Artigo 95), que normalmente é o domingo, salvo exceções previstas. Além disso, tem direito a um intervalo de descanso diário de no mínimo 30 minutos e no máximo 2 horas (Artigo 94)."
+                    },
+                    
+                    "ferias": {
+                        "duracao": "Os trabalhadores têm direito a férias remuneradas (Artigo 99) de: 12 dias para contratos até 1 ano, 24 dias para contratos de 1 a 5 anos, e 30 dias para contratos acima de 5 anos. Trabalhadores com mais de 50 anos têm direito a mais 1 dia de férias por cada 5 anos de trabalho.",
+                        "marcacao": "O período de férias é marcado por acordo entre o trabalhador e o empregador (Artigo 100), considerando as necessidades da empresa e os interesses do trabalhador. Na falta de acordo, o empregador pode determinar o período, consultando previamente os órgãos sindicais.",
+                        "pagamento": "Durante as férias, o trabalhador tem direito ao seu salário normal (Artigo 103), que deve ser pago antes do início do período de férias.",
+                        "acumulacao": "As férias podem ser acumuladas, por acordo, pelo período máximo de 60 dias (Artigo 101). Nos contratos inferiores a um ano, o direito a férias é proporcional à duração do contrato (Artigo 104)."
+                    },
+                    
+                    "faltas": {
+                        "tipos": "As faltas podem ser justificadas ou injustificadas (Artigo 105). São justificadas as faltas motivadas por: casamento, falecimento de familiar, impossibilidade de comparecer por motivos alheios à vontade do trabalhador, prestação de exames, entre outras situações previstas.",
+                        "consequencias": "As faltas justificadas não determinam perda de direitos, salvo quanto à remuneração nos casos previstos (Artigo 106). As faltas injustificadas determinam sempre perda de remuneração e podem constituir infração disciplinar (Artigo 107).",
+                        "procedimento": "O trabalhador deve comunicar ao empregador, logo que possível, a ocorrência de falta justificada. As faltas previsíveis devem ser comunicadas com antecedência mínima de 2 dias (Artigo 108)."
+                    },
+                    
+                    "licencas": {
+                        "maternidade": "As trabalhadoras têm direito a 90 dias de licença de maternidade (Artigo 109), que pode começar 20 dias antes do parto. Este período pode ser estendido em casos de partos múltiplos ou complicados. Durante este período, a trabalhadora tem garantia de manutenção do posto de trabalho e percepção de remuneração.",
+                        "paternidade": "Os trabalhadores têm direito a uma licença de paternidade de 7 dias, consecutivos ou interpolados, a serem gozados nos 30 dias após o nascimento do filho (Artigo 110).",
+                        "casamento": "Por ocasião do casamento, o trabalhador tem direito a uma licença de 7 dias consecutivos (Artigo 111).",
+                        "falecimento": "Em caso de falecimento de cônjuge, pai, mãe, filhos ou irmãos, o trabalhador tem direito a 7 dias de licença. Para outros familiares próximos, são 3 dias (Artigo 111).",
+                        "especiais": "A lei prevê outras licenças especiais, como para prestar exames em estabelecimentos de ensino (até 10 dias por ano)."
+                    },
+                    
+                    "remuneracao": {
+                        "salario_minimo": "O salário mínimo é estabelecido por setor de atividade (Artigo 114) e periodicamente atualizado através de diploma ministerial, com participação da Comissão Consultiva do Trabalho.",
+                        "pagamento": "O salário deve ser pago regular e pontualmente (Artigo 115), em moeda com curso legal no país, por transferência bancária, cheque ou outro meio de pagamento. O intervalo máximo entre pagamentos não pode exceder um mês.",
+                        "deducoes": "As deduções salariais são permitidas apenas nos casos previstos na lei (Artigo 116), como impostos, contribuições para segurança social, e não podem exceder um terço do salário mensal do trabalhador.",
+                        "subsidios": "A lei prevê diversos subsídios (Artigo 119), como o subsídio de férias (correspondente a 50% do salário antes do início das férias) e o 13º salário (gratificação de Natal, correspondente a um mês de salário, pago até 15 de dezembro)."
+                    },
+                    
+                    "protecao": {
+                        "seguranca": "Os empregadores devem garantir condições de higiene e segurança no trabalho (Artigo 216), fornecendo equipamentos de proteção quando necessário e informando os trabalhadores sobre os riscos do trabalho.",
+                        "acidentes": "Em caso de acidente de trabalho ou doença profissional (Artigo 223), o empregador é responsável pelos cuidados médicos e compensações ao trabalhador, devendo ter seguro obrigatório para cobrir estes riscos.",
+                        "discriminacao": "É proibida qualquer forma de discriminação no trabalho (Artigo 5), seja por raça, cor, sexo, religião, opinião política ou origem social, sendo nulas as disposições contratuais que a estabeleçam.",
+                        "assedio": "São proibidas todas as formas de assédio sexual e moral no local de trabalho (Artigo 6), sendo o empregador obrigado a tomar medidas disciplinares contra os infratores."
+                    },
+                    
+                    "menores": {
+                        "idade_minima": "A idade mínima para admissão ao trabalho é de 15 anos (Artigo 26), desde que autorizado pelo representante legal. Para trabalhos leves que não prejudiquem a saúde, a segurança e a educação, pode ser 12 anos.",
+                        "restricoes": "Menores com idade entre 15 e 18 anos não podem trabalhar em atividades insalubres, perigosas ou que prejudiquem seu desenvolvimento físico e educacional (Artigo 27). O período normal de trabalho diário não pode exceder 7 horas.",
+                        "proibicoes": "É proibido o trabalho noturno, extraordinário e em regime de turnos para menores de 18 anos (Artigo 27)."
+                    },
+                    
+                    "estrangeiros": {
+                        "autorizacao": "O trabalhador estrangeiro deve ter autorização de trabalho (Artigo 31) e seu contrato deve ser escrito e visado pelo Ministro ou por quem este delegar.",
+                        "quotas": "As empresas podem contratar estrangeiros nas seguintes proporções (Artigo 32): 5% em empresas com mais de 100 trabalhadores, 8% em empresas com 10 a 100 trabalhadores, e 10% em empresas com até 10 trabalhadores.",
+                        "excecoes": "Não estão sujeitos ao regime de quotas os trabalhadores estrangeiros com qualificações académicas ou profissionais especiais (Artigo 33), desde que não existam nacionais com tais qualificações."
+                    },
+                    
+                    "sindicatos": {
+                        "direitos": "Os trabalhadores têm o direito de formar e filiar-se a sindicatos para proteção de seus interesses (Artigo 137). É garantida a liberdade sindical, sendo proibida qualquer discriminação por motivo de filiação sindical.",
+                        "negociacao": "Os sindicatos podem negociar acordos coletivos (Artigo 162) com os empregadores para estabelecer condições de trabalho, incluindo remuneração, jornada, férias, entre outros aspectos.",
+                        "greve": "O direito à greve é garantido (Artigo 197), desde que seguidos os procedimentos legais, incluindo pré-aviso de cinco dias úteis. Durante a greve, é garantida a proibição de substituição dos grevistas e proteção contra sanções.",
+                        "representacao": "Os trabalhadores têm direito a eleger representantes (Artigo 147) no local de trabalho para defender seus interesses perante a direção da empresa. Estes representantes gozam de proteção especial contra despedimentos injustificados."
+                    },
+                    
+                    "conflitos_laborais": {
+                        "solucao": "Os conflitos laborais podem ser resolvidos por conciliação, mediação e arbitragem (Artigo 184), sendo a conciliação obrigatória antes de qualquer outra forma de resolução.",
+                        "prescricao": "Os direitos resultantes do contrato de trabalho prescrevem (Artigo 231) no prazo de 6 meses após a cessação do contrato, exceto em caso de violação de direitos fundamentais, quando o prazo é de 1 ano.",
+                        "tribunais": "Os conflitos laborais podem ser submetidos aos tribunais do trabalho (Artigo 186), que são competentes para julgar questões relativas a relações de trabalho e segurança social."
+                    }
+                };
+            }
+            
+            saudacao() {
+                const horaAtual = new Date().getHours();
+                let periodo;
+                
+                if (5 <= horaAtual && horaAtual < 12) {
+                    periodo = "Bom dia";
+                } else if (12 <= horaAtual && horaAtual < 18) {
+                    periodo = "Boa tarde";
+                } else {
+                    periodo = "Boa noite";
+                }
+                
+                return `${periodo}! Sou o ${this.nome}, versão ${this.versao}. Estou aqui para fornecer informações sobre a ${this.info_lei}. Como posso ajudar?`;
+            }
+            
+            processar_pergunta(pergunta) {
+                pergunta = pergunta.toLowerCase();
+                
+                // Verifica se é uma saudação ou apresentação
+                if (/\b(oi|olá|bom dia|boa tarde|boa noite|apresente-se)\b/.test(pergunta)) {
+                    return this.saudacao();
+                }
+                
+                // Pergunta sobre informações gerais da lei
+                if (/\b(o que é|sobre|informações|gerais|lei do trabalho|lei 13\/2023)\b/.test(pergunta)) {
+                    return this.conhecimento["geral"];
+                }
+                
+                // Perguntas sobre princípios fundamentais
+                if (/\b(princípios|princípios fundamentais|igualdade|não discriminação|proteção especial)\b/.test(pergunta)) {
+                    if (pergunta.includes("igualdade") || pergunta.includes("discrimin")) {
+                        return this.conhecimento["principios"]["igualdade"];
+                    } else if (pergunta.includes("proteção") || pergunta.includes("especial")) {
+                        return this.conhecimento["principios"]["protecao"];
+                    } else {
+                        return this.conhecimento["principios"]["fundamentais"];
+                    }
+                }
+                
+                // Perguntas sobre contratos
+                if (/\b(contrato|contratos|período probatório|rescisão|demissão|compensação|aviso prévio|formalização)\b/.test(pergunta)) {
+                    if (pergunta.includes("tipo") || pergunta.includes("tipos")) {
+                        return this.conhecimento["contratos"]["tipos"];
+                    } else if (pergunta.includes("probat") || pergunta.includes("experiência")) {
+                        return this.conhecimento["contratos"]["periodo_probatorio"];
+                    } else if (pergunta.includes("formaliz") || pergunta.includes("escrito") || pergunta.includes("verbal")) {
+                        return this.conhecimento["contratos"]["formalizacao"];
+                    } else if (pergunta.includes("rescis") || pergunta.includes("demiss") || pergunta.includes("despedir")) {
+                        return this.conhecimento["contratos"]["rescisao"];
+                    } else if (pergunta.includes("compensação") || pergunta.includes("indenização")) {
+                        return this.conhecimento["contratos"]["compensacao"];
+                    } else if (pergunta.includes("aviso prévio") || pergunta.includes("pré-aviso")) {
+                        return this.conhecimento["contratos"]["aviso_previo"];
+                    } else {
+                        return `Sobre contratos de trabalho: ${this.conhecimento["contratos"]["tipos"]} ${this.conhecimento["contratos"]["periodo_probatorio"]}`;
+                    }
+                }
+                
+                // Perguntas sobre jornada de trabalho
+                if (/\b(jornada|horário|horas|hora extra|extraordinária|noturno|turnos|descanso)\b/.test(pergunta)) {
+                    if (pergunta.includes("extra") || pergunta.includes("extraordin")) {
+                        return this.conhecimento["jornada"]["extraordinaria"];
+                    } else if (pergunta.includes("noturno") || pergunta.includes("noite")) {
+                        return this.conhecimento["jornada"]["noturno"];
+                    } else if (pergunta.includes("turno")) {
+                        return this.conhecimento["jornada"]["turnos"];
+                    } else if (pergunta.includes("descanso") || pergunta.includes("intervalo")) {
+                        return this.conhecimento["jornada"]["descanso"];
+                    } else {
+                        return this.conhecimento["jornada"]["normal"];
+                    }
+                }
+                
+                // Perguntas sobre férias
+                if (/\b(férias|descanso anual|acumulação)\b/.test(pergunta)) {
+                    if (pergunta.includes("marca") || pergunta.includes("quando")) {
+                        return this.conhecimento["ferias"]["marcacao"];
+                    } else if (pergunta.includes("paga") || pergunta.includes("salário")) {
+                        return this.conhecimento["ferias"]["pagamento"];
+                    } else if (pergunta.includes("acumula")) {
+                        return this.conhecimento["ferias"]["acumulacao"];
+                    } else {
+                        return this.conhecimento["ferias"]["duracao"];
+                    }
+                }
+                
+                // Perguntas sobre faltas
+                if (/\b(faltas|ausências|justifica)\b/.test(pergunta)) {
+                    if (pergunta.includes("consequência") || pergunta.includes("efeito")) {
+                        return this.conhecimento["faltas"]["consequencias"];
+                    } else if (pergunta.includes("procedimento") || pergunta.includes("comunicar")) {
+                        return this.conhecimento["faltas"]["procedimento"];
+                    } else {
+                        return this.conhecimento["faltas"]["tipos"];
+                    }
+                }
+                
+                // Perguntas sobre licenças
+                if (/\b(licença|ausência|maternidade|paternidade|casamento|falecimento)\b/.test(pergunta)) {
+                    if (pergunta.includes("maternidade") || pergunta.includes("gestante")) {
+                        return this.conhecimento["licencas"]["maternidade"];
+                    } else if (pergunta.includes("paternidade") || pergunta.includes("pai")) {
+                        return this.conhecimento["licencas"]["paternidade"];
+                    } else if (pergunta.includes("casamento")) {
+                        return this.conhecimento["licencas"]["casamento"];
+                    } else if (pergunta.includes("falecimento") || pergunta.includes("luto") || pergunta.includes("morte")) {
+                        return this.conhecimento["licencas"]["falecimento"];
+                    } else if (pergunta.includes("especial") || pergunta.includes("estudo") || pergunta.includes("exame")) {
+                        return this.conhecimento["licencas"]["especiais"];
+                    } else {
+                        return "A lei prevê diversas licenças, incluindo: maternidade (90 dias), paternidade (7 dias), casamento (7 dias) e falecimento de familiar próximo (7 dias).";
+                    }
+                }
+                
+                // Perguntas sobre remuneração
+                if (/\b(salário|remuneração|pagamento|subsídio|mínimo|deduções|desconto)\b/.test(pergunta)) {
+                    if (pergunta.includes("mínimo")) {
+                        return this.conhecimento["remuneracao"]["salario_minimo"];
+                    } else if (pergunta.includes("subsídio") || pergunta.includes("13")) {
+                        return this.conhecimento["remuneracao"]["subsidios"];
+                    } else if (pergunta.includes("dedução") || pergunta.includes("desconto")) {
+                        return this.conhecimento["remuneracao"]["deducoes"];
+                    } else {
+                        return this.conhecimento["remuneracao"]["pagamento"];
+                    }
+                }
+                
+                // Perguntas sobre proteção no trabalho
+                if (/\b(proteção|segurança|acidente|discriminação|assédio)\b/.test(pergunta)) {
+                    if (pergunta.includes("acidente")) {
+                        return this.conhecimento["protecao"]["acidentes"];
+                    } else if (pergunta.includes("discrimina")) {
+                        return this.conhecimento["protecao"]["discriminacao"];
+                    } else if (pergunta.includes("assédio")) {
+                        return this.conhecimento["protecao"]["assedio"];
+                    } else {
+                        return this.conhecimento["protecao"]["seguranca"];
+                    }
+                }
+                
+                // Perguntas sobre menores
+                if (/\b(menor|criança|adolescente|idade mínima|15 anos)\b/.test(pergunta)) {
+                    if (pergunta.includes("idade") || pergunta.includes("mínima")) {
+                        return this.conhecimento["menores"]["idade_minima"];
+                    } else if (pergunta.includes("proibição") || pergunta.includes("proibido")) {
+                        return this.conhecimento["menores"]["proibicoes"];
+                    } else {
+                        return this.conhecimento["menores"]["restricoes"];
+                    }
+                }
+                
+                // Perguntas sobre trabalhadores estrangeiros
+                if (/\b(estrangeiro|autorização|quota|visto)\b/.test(pergunta)) {
+                    if (pergunta.includes("quota")) {
+                        return this.conhecimento["estrangeiros"]["quotas"];
+                    } else if (pergunta.includes("exceção") || pergunta.includes("especial")) {
+                        return this.conhecimento["estrangeiros"]["excecoes"];
+                    } else {
+                        return this.conhecimento["estrangeiros"]["autorizacao"];
+                    }
+                }
+                
+                // Perguntas sobre sindicatos
+                if (/\b(sindicato|sindical|greve|negociação coletiva|representação)\b/.test(pergunta)) {
+                    if (pergunta.includes("greve")) {
+                        return this.conhecimento["sindicatos"]["greve"];
+                    } else if (pergunta.includes("negocia") || pergunta.includes("coletiva")) {
+                        return this.conhecimento["sindicatos"]["negociacao"];
+                    } else if (pergunta.includes("representação") || pergunta.includes("representante")) {
+                        return this.conhecimento["sindicatos"]["representacao"];
+                    } else {
+                        return this.conhecimento["sindicatos"]["direitos"];
+                    }
+                }
+                
+                // Perguntas sobre conflitos laborais
+                if (/\b(conflito|tribunal|conciliação|mediação|arbitragem|prescrição)\b/.test(pergunta)) {
+                    if (pergunta.includes("prescrição") || pergunta.includes("prazo")) {
+                        return this.conhecimento["conflitos_laborais"]["prescricao"];
+                    } else if (pergunta.includes("tribunal")) {
+                        return this.conhecimento["conflitos_laborais"]["tribunais"];
+                    } else {
+                        return this.conhecimento["conflitos_laborais"]["solucao"];
+                    }
+                }
+                
+                // Resposta padrão se não identificar a pergunta
+                return "Não entendi sua pergunta específica. Posso fornecer informações sobre: princípios fundamentais, contratos de trabalho, jornada de trabalho, férias, faltas, licenças, remuneração, proteção no trabalho, trabalho de menores, trabalhadores estrangeiros, direitos sindicais e resolução de conflitos laborais. Por favor, reformule sua pergunta.";
+            }
+        }
+
+        // Instância do bot
+        const bot = new BotLeiTrabalhoMocambique();
+        
+        // Elementos do DOM
+        const chatBox = document.getElementById('chatBox');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const exampleButtons = document.getElementById('exampleButtons');
+        const typingIndicator = document.getElementById('typingIndicator');
+        
+        // Exemplos de perguntas atualizados
+        const perguntas_exemplo = [
+            "Quais são os tipos de contrato de trabalho?",
+            "Quanto tempo dura o período probatório?",
+            "Quantos dias de férias tenho direito?",
+            "Quanto tempo é a licença maternidade?",
+            "Qual é o valor da compensação por despedimento?",
+            "Quais são os direitos dos trabalhadores estrangeiros?",
+            "Como funciona o trabalho noturno?",
+            "Que licenças tenho direito em caso de casamento?"
+        ];
+        
+        // Função para adicionar mensagem ao chat
+        function addMessage(message, isUser = false) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageElement.textContent = message;
+            
+            // Inserir antes do indicador de digitação
+            chatBox.insertBefore(messageElement, typingIndicator);
+            
+            // Rolar para o final
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        // Função para simular digitação do bot
+        function showTypingIndicator() {
+            typingIndicator.classList.add('show');
+        }
+        
+        function hideTypingIndicator() {
+            typingIndicator.classList.remove('show');
+        }
+        
+        // Processar pergunta do usuário
+        function processUserInput() {
+            const pergunta = userInput.value.trim();
+            if (pergunta === '') return;
+            
+            // Adicionar mensagem do usuário
+            addMessage(pergunta, true);
+            
+            // Limpar input
+            userInput.value = '';
+            
+            // Mostrar indicador de digitação
+            showTypingIndicator();
+            
+            // Simular tempo de processamento
+            setTimeout(() => {
+                // Obter resposta do bot
+                const resposta = bot.processar_pergunta(pergunta);
+                
+                // Esconder indicador de digitação
+                hideTypingIndicator();
+                
+                // Adicionar resposta do bot
+                addMessage(resposta);
+            }, 1000);
+        }
+        
+        // Event listeners
+        sendButton.addEventListener('click', processUserInput);
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                processUserInput();
+            }
+        });
+        
+        // Adicionar botões de exemplo
+        perguntas_exemplo.forEach(pergunta => {
+            const button = document.createElement('button');
+            button.classList.add('example-button');
+            button.textContent = pergunta;
+            
+            button.addEventListener('click', () => {
+                userInput.value = pergunta;
+                processUserInput();
+            });
+            
+            exampleButtons.appendChild(button);
+        });
+        
+        // Mensagem inicial do bot
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                addMessage(bot.saudacao());
+            }, 500);
+        });
+    </script>
+
+
+</body></html>
